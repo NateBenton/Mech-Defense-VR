@@ -11,11 +11,13 @@ namespace _NBGames.Scripts.Managers
         [SerializeField] private int _currentMoney;
         [SerializeField] private int _maxMoney = 999999;
 
+        public int CurrentMoney => _currentMoney;
+
         public static GameManager Instance
         {
             get
             {
-                if (_instance != null)
+                if (_instance == null)
                 {
                     Debug.LogError("GameManager is NULL");
                 }

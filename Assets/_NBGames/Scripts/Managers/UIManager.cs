@@ -4,7 +4,7 @@ namespace _NBGames.Scripts.Managers
 {
     public class UIManager : MonoBehaviour
     {
-        public static UIManager _instance;
+        private static UIManager _instance;
 
         public static UIManager Instance
         {
@@ -19,6 +19,9 @@ namespace _NBGames.Scripts.Managers
                 return _instance;
             }
         }
+
+        [SerializeField] private GameObject _shopObject;
+        private bool _isShowingShop;
 
         private void OnEnable()
         {
@@ -46,7 +49,9 @@ namespace _NBGames.Scripts.Managers
 
         private void ToggleShop()
         {
-        
+            _isShowingShop = !_isShowingShop;
+            
+            _shopObject.SetActive(_isShowingShop);
         }
     }
 }
