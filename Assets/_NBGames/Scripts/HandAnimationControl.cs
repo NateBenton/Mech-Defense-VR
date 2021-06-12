@@ -15,6 +15,11 @@ namespace _NBGames.Scripts
             _triggerAction.action.performed += TriggerAnimation;
         }
 
+        private void AButtonTest(InputAction.CallbackContext obj)
+        {
+            Debug.Log("A button pressed!");
+        }
+
         private void OnDisable()
         {
             _gripAction.action.performed -= GripAnimation;

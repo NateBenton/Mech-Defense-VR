@@ -650,6 +650,14 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "A Button",
+                    "type": "Button",
+                    "id": "86576aee-300c-4640-bc50-fbd3c04d83ac",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -991,6 +999,17 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "Grip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3142a146-4396-441a-bda4-4f4e303bb43f",
+                    "path": "<XRController>{RightHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "A Button",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

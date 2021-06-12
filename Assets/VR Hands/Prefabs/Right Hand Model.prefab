@@ -919,6 +919,7 @@ MonoBehaviour:
   _handAnimator: {fileID: 5686134208192617028}
   _gripAction: {fileID: -300011187912799331, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   _triggerAction: {fileID: -8909592024724150486, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  _aButtonAction: {fileID: -1149024647900346311, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!1 &5686134208185362932
 GameObject:
   m_ObjectHideFlags: 0
