@@ -142,7 +142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &20599944
 Transform:
   m_ObjectHideFlags: 0
@@ -3635,7 +3635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3b2a579b3d56ac419b11417d06aad57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentMoney: 0
+  _currentMoney: 5000
   _maxMoney: 999999
 --- !u!4 &1161753542
 Transform:
@@ -3869,6 +3869,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _baseDamage: 2.8
+  _isTwoHandedWeapon: 0
   _amplitude: 0.5
   _duration: 0.25
 --- !u!1 &1272739665
@@ -6279,7 +6280,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2098883697
 Transform:
   m_ObjectHideFlags: 0
@@ -6528,6 +6529,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _baseDamage: 2.8
+  _isTwoHandedWeapon: 0
   _amplitude: 0.5
   _duration: 0.25
 --- !u!114 &2142593337

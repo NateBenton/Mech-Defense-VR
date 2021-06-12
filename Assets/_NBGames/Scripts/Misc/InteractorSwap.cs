@@ -1,3 +1,4 @@
+using _NBGames.Scripts.Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,38 +14,70 @@ namespace _NBGames.Scripts.Misc
         [SerializeField] private GameObject _leftControllerRay;
         [SerializeField] private GameObject _rightControllerRay;
 
-        private bool _isDirectInteraction;
+        private bool _isRightHandedMode = true;
 
         private void OnEnable()
         {
             _aButtonAction.action.performed += AButtonPressed;
+            EventManager.onShowShop += RayInteractEnable;
+            EventManager.onCloseShop += ChangeInteractorType;
         }
 
         private void OnDisable()
         {
             _aButtonAction.action.performed -= AButtonPressed;
+            EventManager.onShowShop -= RayInteractEnable;
+            EventManager.onCloseShop -= ChangeInteractorType;
         }
 
         private void AButtonPressed(InputAction.CallbackContext obj)
         {
-            if (_isDirectInteraction)
-            {
-                _isDirectInteraction = false;
+            if (UIManager.Instance.IsShowingShop) return;
             
-                _leftControllerDirect.SetActive(false);
+            if (_isRightHandedMode)
+            {
+                _isRightHandedMode = false;
+            
+                _leftControllerDirect.SetActive(true);
                 _rightControllerDirect.SetActive(false);
-                _leftControllerRay.SetActive(true);
+                _leftControllerRay.SetActive(false);
                 _rightControllerRay.SetActive(true);
             }
             else
             {
-                _isDirectInteraction = true;
+                _isRightHandedMode = true;
             
-                _leftControllerDirect.SetActive(true);
+                _leftControllerDirect.SetActive(false);
                 _rightControllerDirect.SetActive(true);
-                _leftControllerRay.SetActive(false);
+                _leftControllerRay.SetActive(true);
                 _rightControllerRay.SetActive(false);
             }
+        }
+
+        private void ChangeInteractorType()
+        {
+            if (_isRightHandedMode)
+            {
+                _leftControllerDirect.SetActive(false);
+                _rightControllerDirect.SetActive(true);
+                _leftControllerRay.SetActive(true);
+                _rightControllerRay.SetActive(false);
+            }
+            else
+            {
+                _leftControllerDirect.SetActive(true);
+                _rightControllerDirect.SetActive(false);
+                _leftControllerRay.SetActive(false);
+                _rightControllerRay.SetActive(true);
+            }
+        }
+        
+        private void RayInteractEnable()
+        {
+            _leftControllerDirect.SetActive(false);
+            _rightControllerDirect.SetActive(false);
+            _leftControllerRay.SetActive(true);
+            _rightControllerRay.SetActive(true);
         }
     }
 }

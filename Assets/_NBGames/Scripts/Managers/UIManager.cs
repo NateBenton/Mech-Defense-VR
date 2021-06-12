@@ -13,7 +13,6 @@ namespace _NBGames.Scripts.Managers
                 if (_instance == null)
                 {
                     Debug.LogError("UI Manager is null!");
-
                 }
 
                 return _instance;
@@ -23,14 +22,18 @@ namespace _NBGames.Scripts.Managers
         [SerializeField] private GameObject _shopObject;
         private bool _isShowingShop;
 
+        public bool IsShowingShop => _isShowingShop;
+
         private void OnEnable()
         {
-            EventManager.onShowShop += ToggleShop;
+            EventManager.onShowShop += ShowShop;
+            EventManager.onCloseShop += CloseShop;
         }
 
         private void OnDisable()
         {
-            EventManager.onShowShop -= ToggleShop;
+            EventManager.onShowShop -= ShowShop;
+            EventManager.onCloseShop -= CloseShop;
         }
 
         private void Awake()
@@ -47,11 +50,16 @@ namespace _NBGames.Scripts.Managers
             }
         }
 
-        private void ToggleShop()
+        private void ShowShop()
         {
-            _isShowingShop = !_isShowingShop;
-            
-            _shopObject.SetActive(_isShowingShop);
+            _isShowingShop = true;
+            _shopObject.SetActive(true);
+        }
+        
+        private void CloseShop()
+        {
+            _isShowingShop = false;
+            _shopObject.SetActive(false);
         }
     }
 }

@@ -7,7 +7,14 @@ namespace _NBGames.Scripts.Shop
     {
         public void ShowShopButton()
         {
-            EventManager.ShowShop();
+            if (!UIManager.Instance.IsShowingShop)
+            {
+                EventManager.ShowShop();
+            }
+            else
+            {
+                EventManager.CloseShop();
+            }
         }
     }
 }
