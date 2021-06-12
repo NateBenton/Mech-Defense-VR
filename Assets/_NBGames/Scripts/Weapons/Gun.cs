@@ -50,15 +50,12 @@ namespace _NBGames.Scripts.Weapons
 
         private void CheckForTargetHit()
         {
-            RaycastHit hit;
-            
             // Check if raycast hit damageable target
-            if (Physics.Raycast(_raycastOrigin.position, _raycastOrigin.TransformDirection(Vector3.forward), 
-                out hit, Mathf.Infinity, _damageableLayerMask))
-            {
-                var damageable =  hit.transform.GetComponent<IDamageable>();
-                damageable?.Damage(_currentDamage);
-            }
+            if (!Physics.Raycast(_raycastOrigin.position, _raycastOrigin.TransformDirection(Vector3.forward),
+                out var hit, Mathf.Infinity, _damageableLayerMask)) return;
+            
+            var damageable =  hit.transform.GetComponent<IDamageable>();
+            damageable?.TakeDamage(_currentDamage);
         }
     }
 }

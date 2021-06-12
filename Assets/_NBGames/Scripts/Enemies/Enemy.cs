@@ -1,3 +1,4 @@
+using System;
 using _NBGames.Scripts.Interfaces;
 using UnityEngine;
 
@@ -12,8 +13,8 @@ namespace _NBGames.Scripts.Enemies
         {
             Health = _health;
         }
-
-        public void Damage(float damageAmount)
+        
+        public void TakeDamage(float damageAmount)
         {
             Health = Mathf.Max(0, Health - damageAmount);
 
