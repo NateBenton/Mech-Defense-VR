@@ -23,6 +23,8 @@ namespace _NBGames.Scripts.Managers
 
         [SerializeField] private Inventory.Inventory _inventory;
 
+        public Inventory.Inventory Inventory => _inventory;
+
         private void OnEnable()
         {
             EventManager.onAddItemToInventory += AddItemToInventory;
