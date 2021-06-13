@@ -1,5 +1,6 @@
 using _NBGames.Scripts.Inventory;
 using _NBGames.Scripts.Managers;
+using _NBGames.Scripts.Utilities;
 using UnityEngine;
 
 namespace _NBGames.Scripts.Misc

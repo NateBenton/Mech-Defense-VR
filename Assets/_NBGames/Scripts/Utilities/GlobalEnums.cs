@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class GlobalEnums
+namespace _NBGames.Scripts.Utilities
 {
-    public enum TreasureType
+    public class GlobalEnums
     {
-        Money,
-        Pendant,
-        Ring,
-        Tray
+        public enum TreasureType
+        {
+            Money,
+            Pendant,
+            Ring,
+            Tray
+        }
     }
 }
