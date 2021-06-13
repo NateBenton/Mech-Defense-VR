@@ -7,6 +7,7 @@ namespace _NBGames.Scripts.Inventory
     {
         public string ItemName;
         public bool IsWeapon;
+        public string Description;
         public int SellValue;
     }
 }

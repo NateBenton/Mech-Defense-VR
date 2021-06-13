@@ -1,10 +1,12 @@
+using System;
 using UnityEngine;
 
 namespace _NBGames.Scripts.Inventory
 {
+    [Serializable]
     public class ItemSlot
     {
-        public Item item;
-        public int quantity;
+        public Item Item;
+        public int Quantity;
     }
 }

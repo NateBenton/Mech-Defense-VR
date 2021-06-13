@@ -6,6 +6,9 @@ public class GlobalEnums
 {
     public enum TreasureType
     {
-        Money
+        Money,
+        Pendant,
+        Ring,
+        Tray
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using _NBGames.Scripts.Inventory;
 using UnityEngine;
 
 namespace _NBGames.Scripts.Managers
@@ -21,6 +22,12 @@ namespace _NBGames.Scripts.Managers
         public static void CloseShop()
         {
             onCloseShop?.Invoke();
+        }
+
+        public static event Action<Item, int> onAddItemToInventory;
+        public static void AddItemToInventory(Item itemToAdd, int quantity)
+        {
+            onAddItemToInventory?.Invoke(itemToAdd, quantity);
         }
     }
 }

@@ -5,6 +5,8 @@ namespace _NBGames.Scripts.Inventory
 {
     public class Inventory : MonoBehaviour
     {
-        private List<ItemSlot> _itemSlots = new List<ItemSlot>();
+        [SerializeField] private List<ItemSlot> _itemSlots = new List<ItemSlot>();
+
+        public List<ItemSlot> ItemSlots => _itemSlots;
     }
 }
