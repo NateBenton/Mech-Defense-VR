@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using _NBGames.Scripts.Interfaces;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -20,13 +21,18 @@ namespace _NBGames.Scripts.Weapons
         [SerializeField] private float _amplitude;
         [SerializeField] private float _duration;
 
+        [Header("Gun Holder")] 
+        [SerializeField] private Transform _gunHolder;
+
         private float _currentDamage;
+        private Rigidbody _rigidbody;
+        private Quaternion _defaultRotation;
 
         private void OnEnable()
         {
             _grabInteractable.activated.AddListener(TriggerPulled);
         }
-
+        
         private void OnDisable()
         {
             _grabInteractable.activated.RemoveListener(TriggerPulled);
@@ -35,6 +41,14 @@ namespace _NBGames.Scripts.Weapons
         private void Awake()
         {
             _currentDamage = _baseDamage;
+            
+            _rigidbody = GetComponent<Rigidbody>();
+            _defaultRotation = transform.rotation;
+
+            if (_rigidbody == null)
+            {
+                Debug.LogError("Rigidbody somehow missing on " + gameObject.name);
+            }
         }
 
         private void TriggerPulled(ActivateEventArgs arg0)
@@ -56,6 +70,22 @@ namespace _NBGames.Scripts.Weapons
             
             var damageable =  hit.transform.GetComponent<IDamageable>();
             damageable?.TakeDamage(_currentDamage);
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            StartCoroutine(RespawnWeapon());
+        }
+
+        private IEnumerator RespawnWeapon()
+        {
+            yield return new WaitForSeconds(0.5f);
+            _rigidbody.useGravity = false;
+            
+            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.angularVelocity = Vector3.zero;
+            transform.position = _gunHolder.position;
+            transform.rotation = _defaultRotation;
         }
     }
 }
