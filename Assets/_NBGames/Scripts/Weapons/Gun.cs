@@ -15,7 +15,6 @@ namespace _NBGames.Scripts.Weapons
         
         [Header("Gun Setup")]
         [SerializeField] private float _baseDamage = 2.8f;
-        [SerializeField] private bool _isTwoHandedWeapon;
 
         [Header("Haptic Feedback")]
         [SerializeField] private float _amplitude;
