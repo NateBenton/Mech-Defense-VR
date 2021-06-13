@@ -27,6 +27,7 @@ namespace _NBGames.Scripts.Enemies
 
         private void DropTreasure()
         {
+            if (_treasureDropped == null) return;
             Instantiate(_treasureDropped, transform.position, Quaternion.identity);
         }
     }
