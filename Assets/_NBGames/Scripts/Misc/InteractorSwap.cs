@@ -19,21 +19,15 @@ namespace _NBGames.Scripts.Misc
         private void OnEnable()
         {
             _aButtonAction.action.performed += AButtonPressed;
-            EventManager.onShowShop += RayInteractEnable;
-            EventManager.onCloseShop += ChangeInteractorType;
         }
 
         private void OnDisable()
         {
             _aButtonAction.action.performed -= AButtonPressed;
-            EventManager.onShowShop -= RayInteractEnable;
-            EventManager.onCloseShop -= ChangeInteractorType;
         }
 
         private void AButtonPressed(InputAction.CallbackContext obj)
         {
-            if (UIManager.Instance.IsShowingShop) return;
-            
             if (_isRightHandedMode)
             {
                 _isRightHandedMode = false;

@@ -12,22 +12,36 @@ namespace _NBGames.Scripts.Managers
             onAddMoney?.Invoke(amountToAdd);
         }
 
-        public static event Action onShowShop;
-        public static void ShowShop()
-        {
-            onShowShop?.Invoke();
-        }
+        public static event Action<int> onRemoveMoney;
 
-        public static event Action onCloseShop;
-        public static void CloseShop()
+        public static void RemoveMoney(int amountToRemove)
         {
-            onCloseShop?.Invoke();
+            onRemoveMoney?.Invoke(amountToRemove);
         }
 
         public static event Action<Item, int> onAddItemToInventory;
         public static void AddItemToInventory(Item itemToAdd, int quantity)
         {
             onAddItemToInventory?.Invoke(itemToAdd, quantity);
+        }
+
+        public static event Action onShowBuyOptions;
+        public static void ShowBuyOptions()
+        {
+            onShowBuyOptions?.Invoke();
+        }
+
+        public static event Action onShowInsufficientFundsText;
+        public static void ShowInsufficientFundsText()
+        {
+            onShowInsufficientFundsText?.Invoke();
+        }
+
+        public static event Action onShowPurchasedText;
+
+        public static void ShowPurchasedText()
+        {
+            onShowPurchasedText?.Invoke();
         }
     }
 }

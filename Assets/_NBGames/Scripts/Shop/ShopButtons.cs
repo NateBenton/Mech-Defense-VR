@@ -1,26 +1,22 @@
 using _NBGames.Scripts.Managers;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _NBGames.Scripts.Shop
 {
     public class ShopButtons : MonoBehaviour
     {
-        public void ShowShopButton()
-        {
-            if (!UIManager.Instance.IsShowingShop)
-            {
-                EventManager.ShowShop();
-            }
-            else
-            {
-                EventManager.CloseShop();
-            }
-        }
+        [SerializeField] private Button _buyButton;
+        [SerializeField] private Button _upgradeButton;
+        [SerializeField] private Button _sellButton;
 
-        public void ShowBuyWindowButton()
+        public void BuyWindowButton()
         {
-            UIManager.Instance.MainWindow.SetActive(false);
-            UIManager.Instance.BuyWindow.SetActive(true);
+            _buyButton.interactable = false;
+            _upgradeButton.interactable = true;
+            _sellButton.interactable = true;
+            
+            EventManager.ShowBuyOptions();
         }
     }
 }

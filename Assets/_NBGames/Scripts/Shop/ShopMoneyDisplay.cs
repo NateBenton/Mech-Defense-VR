@@ -9,17 +9,27 @@ namespace _NBGames.Scripts.Shop
     {
         [SerializeField] private TextMeshProUGUI _moneyValueText;
 
+        private void Awake()
+        {
+            UpdateMoneyText();
+        }
+
         private void OnEnable()
         {
-            EventManager.onShowShop += UpdateMoneyText;
+            EventManager.onRemoveMoney += UpdateMoneyText;
         }
 
         private void OnDisable()
         {
-            EventManager.onShowShop -= UpdateMoneyText;
+            EventManager.onRemoveMoney -= UpdateMoneyText;
         }
 
         private void UpdateMoneyText()
+        {
+            _moneyValueText.text = GameManager.Instance.CurrentMoney.ToString();
+        }
+
+        private void UpdateMoneyText(int money)
         {
             _moneyValueText.text = GameManager.Instance.CurrentMoney.ToString();
         }

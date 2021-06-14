@@ -61,5 +61,10 @@ namespace _NBGames.Scripts.Managers
 
             _inventory.ItemSlots.Add(itemSlotToAppend);
         }
+
+        public bool ItemExists(Item item)
+        {
+            return _inventory.ItemSlots.Any(itemSlot => itemSlot.Item == item);
+        }
     }
 }

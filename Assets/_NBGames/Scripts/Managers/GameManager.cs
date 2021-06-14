@@ -30,11 +30,13 @@ namespace _NBGames.Scripts.Managers
         private void OnEnable()
         {
             EventManager.onAddMoney += AddMoney;
+            EventManager.onRemoveMoney += RemoveMoney;
         }
 
         private void OnDisable()
         {
             EventManager.onAddMoney -= AddMoney;
+            EventManager.onRemoveMoney -= RemoveMoney;
         }
 
         private void Awake()
@@ -54,6 +56,11 @@ namespace _NBGames.Scripts.Managers
         private void AddMoney(int amount)
         {
             _currentMoney = Mathf.Min((_currentMoney + amount), _maxMoney);
+        }
+
+        private void RemoveMoney(int amount)
+        {
+            _currentMoney -= amount;
         }
     }
 }
