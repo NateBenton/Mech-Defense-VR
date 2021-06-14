@@ -1,4 +1,5 @@
-using System;
+using System.Collections.Generic;
+using _NBGames.Scripts.Shop;
 using UnityEngine;
 
 namespace _NBGames.Scripts.Managers
@@ -10,8 +11,10 @@ namespace _NBGames.Scripts.Managers
         [Header("Money Settings")]
         [SerializeField] private int _currentMoney;
         [SerializeField] private int _maxMoney = 999999;
+        [SerializeField] private List<ItemForPurchase> _weaponsForSaleInShop = new List<ItemForPurchase>();
 
         public int CurrentMoney => _currentMoney;
+        public List<ItemForPurchase> WeaponsForSaleInShop => _weaponsForSaleInShop;
 
         public static GameManager Instance
         {

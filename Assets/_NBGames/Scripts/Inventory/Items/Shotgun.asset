@@ -16,3 +16,4 @@ MonoBehaviour:
   IsWeapon: 1
   Description: Boom stick with a new meaning.
   SellValue: 0
+  PurchasePrice: 8000

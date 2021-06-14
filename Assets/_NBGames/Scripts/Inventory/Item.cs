@@ -9,5 +9,6 @@ namespace _NBGames.Scripts.Inventory
         public bool IsWeapon;
         public string Description;
         public int SellValue;
+        public int PurchasePrice;
     }
 }

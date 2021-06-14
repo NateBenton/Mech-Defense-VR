@@ -26,7 +26,6 @@ namespace _NBGames.Scripts.Weapons
 
         private float _currentDamage;
         private Rigidbody _rigidbody;
-        private Quaternion _defaultRotation;
 
         private void OnEnable()
         {
@@ -43,7 +42,6 @@ namespace _NBGames.Scripts.Weapons
             _currentDamage = _baseDamage;
             
             _rigidbody = GetComponent<Rigidbody>();
-            _defaultRotation = transform.rotation;
 
             if (_rigidbody == null)
             {
@@ -85,7 +83,7 @@ namespace _NBGames.Scripts.Weapons
             _rigidbody.velocity = Vector3.zero;
             _rigidbody.angularVelocity = Vector3.zero;
             transform.position = _gunHolder.position;
-            transform.rotation = _defaultRotation;
+            transform.rotation = _gunHolder.rotation;
         }
     }
 }
