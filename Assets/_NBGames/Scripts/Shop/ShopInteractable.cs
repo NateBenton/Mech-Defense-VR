@@ -1,7 +1,6 @@
 using System;
 using _NBGames.Scripts.Inventory;
 using _NBGames.Scripts.Managers;
-using TMPro;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -25,16 +24,28 @@ namespace _NBGames.Scripts.Shop
         private void Awake()
         {
             _grabInteractable = GetComponent<XRGrabInteractable>();
-            
+
             if (_grabInteractable == null)
             {
                 Debug.LogError("XRGRabInteractable is null on " + gameObject.name);
             }
             
+            if (InventoryManager.Instance.ItemExists(_item))
+            {
+                EventManager.ShowPurchasedText();
+                Destroy(gameObject);
+                return;
+            }
+
             DisableInteractionByDefault();
             CheckAvailableFunds();
         }
-        
+
+        private void Start()
+        {
+            EventManager.ShowWeaponInfo(_item.ItemName, _item.Description, _item.PurchasePrice);
+        }
+
         private void DisableInteractionByDefault()
         {
             _grabInteractable.enabled = false;
@@ -69,10 +80,9 @@ namespace _NBGames.Scripts.Shop
             EventManager.RemoveMoney(_item.PurchasePrice);
             EventManager.AddItemToInventory(_item, 1);
             EventManager.ShowPurchasedText();
-            // ToDo:
-            // drop weapon from hand
-            // respawn it to holder position
-            // disable interaction
+            _grabInteractable.enabled = false;
+            
+            Destroy(gameObject);
         }
     }
 }

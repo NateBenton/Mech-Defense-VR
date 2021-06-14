@@ -1,28 +1,30 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using _NBGames.Scripts.Managers;
 using UnityEngine;
 
-public class ButtonController : MonoBehaviour
+namespace _NBGames.Scripts.Shop
 {
-    [SerializeField] private GameObject[] _navigationButtons;
-
-    private void OnEnable()
+    public class ButtonController : MonoBehaviour
     {
-        EventManager.onShowBuyOptions += EnableNavigationButtons;
-    }
+        [SerializeField] private GameObject[] _navigationButtons;
+        [SerializeField] private BuyManager _buyManager;
 
-    private void OnDisable()
-    {
-        EventManager.onShowBuyOptions -= EnableNavigationButtons;
-    }
-
-    private void EnableNavigationButtons()
-    {
-        foreach (var button in _navigationButtons)
+        private void OnEnable()
         {
-            button.SetActive(true);
+            EventManager.onShowBuyOptions += EnableNavigationButtons;
+        }
+
+        private void OnDisable()
+        {
+            EventManager.onShowBuyOptions -= EnableNavigationButtons;
+        }
+
+        private void EnableNavigationButtons()
+        {
+            foreach (var button in _navigationButtons)
+            {
+                button.SetActive(true);
+            }
         }
     }
 }

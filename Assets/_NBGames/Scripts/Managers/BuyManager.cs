@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using _NBGames.Scripts.Shop;
 using UnityEngine;
@@ -38,6 +37,16 @@ namespace _NBGames.Scripts.Managers
             }
             
             _shownWeapon = Instantiate(_weaponInteractables[_shownWeaponIndex], _weaponInteractableHolder.transform);
+        }
+
+        public void NextWeapon()
+        {
+            Debug.Log("Next");
+        }
+
+        public void PreviousWeapon()
+        {
+            Debug.Log("Previous");
         }
     }
 }

@@ -31,6 +31,13 @@ namespace _NBGames.Scripts.Managers
             onShowBuyOptions?.Invoke();
         }
 
+        public static event Action<string, string, int> onShowWeaponInfo;
+
+        public static void ShowWeaponInfo(string itemName, string description, int price)
+        {
+            onShowWeaponInfo?.Invoke(itemName, description, price);
+        }
+
         public static event Action onShowInsufficientFundsText;
         public static void ShowInsufficientFundsText()
         {

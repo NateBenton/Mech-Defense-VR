@@ -18,17 +18,25 @@ namespace _NBGames.Scripts.Shop
             EventManager.onShowInsufficientFundsText += ShowInsufficientFundsText;
             EventManager.onShowPurchasedText += ShowPurchasedText;
             EventManager.onShowBuyOptions += EnableCanvas;
+            EventManager.onShowWeaponInfo += ShowWeaponInfo;
         }
 
         private void OnDisable()
         {
             EventManager.onShowInsufficientFundsText -= ShowInsufficientFundsText;
             EventManager.onShowPurchasedText -= ShowPurchasedText;
+            EventManager.onShowWeaponInfo -= ShowWeaponInfo;
         }
         
         private void EnableCanvas()
         {
             _canvas.enabled = true;
+        }
+        
+        private void ShowWeaponInfo(string itemName, string description, int value)
+        {
+            _weaponNameText.text = $"{itemName} - {value}";
+            _weaponDescriptionText.text = description;
         }
 
         private void ShowInsufficientFundsText()
