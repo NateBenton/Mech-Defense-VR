@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8597885403942404321}
   - component: {fileID: 8597885403942404320}
   - component: {fileID: 8597885403942404323}
+  - component: {fileID: 1212491602311851619}
   m_Layer: 5
   m_Name: Weapon Button
   m_TagString: Untagged
@@ -122,6 +123,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1212491602311851619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8597885403942404325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5818a8e174385e74fa2e4aec0c04d0f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gunModels:
+  - {fileID: 6898562889468636600}
+  - {fileID: 642444988849792523}
 --- !u!1001 &3744633711130388206
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -191,6 +207,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9129ddd126d6b3439b6cdf6d9df5a85, type: 3}
+--- !u!1 &642444988849792523 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4259825622093529317, guid: c9129ddd126d6b3439b6cdf6d9df5a85, type: 3}
+  m_PrefabInstance: {fileID: 3744633711130388206}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5839716176894517616 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7132939199875336094, guid: c9129ddd126d6b3439b6cdf6d9df5a85, type: 3}
@@ -265,6 +286,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a651bcaaa4fc5e47831c01d8de91f88, type: 3}
+--- !u!1 &6898562889468636600 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2949098393528426403, guid: 9a651bcaaa4fc5e47831c01d8de91f88, type: 3}
+  m_PrefabInstance: {fileID: 8597885405369971227}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2930884391827006396 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6916760381268578727, guid: 9a651bcaaa4fc5e47831c01d8de91f88, type: 3}

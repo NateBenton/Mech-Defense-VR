@@ -5,8 +5,7 @@ namespace _NBGames.Scripts.Shop
 {
     public class WeaponForPurchaseButton : MonoBehaviour
     {
-        private Item _weapon;
-        [SerializeField] private GameObject _handgunModel;
-        [SerializeField] private GameObject _shotgunModel;
+        [SerializeField] private GameObject[] _gunModels;
+        public GameObject[] GunModels => _gunModels;
     }
 }

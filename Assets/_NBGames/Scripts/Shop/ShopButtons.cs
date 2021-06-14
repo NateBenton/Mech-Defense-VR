@@ -16,5 +16,11 @@ namespace _NBGames.Scripts.Shop
                 EventManager.CloseShop();
             }
         }
+
+        public void ShowBuyWindowButton()
+        {
+            UIManager.Instance.MainWindow.SetActive(false);
+            UIManager.Instance.BuyWindow.SetActive(true);
+        }
     }
 }

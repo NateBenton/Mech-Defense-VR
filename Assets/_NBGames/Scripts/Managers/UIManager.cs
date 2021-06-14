@@ -20,9 +20,15 @@ namespace _NBGames.Scripts.Managers
         }
 
         [SerializeField] private GameObject _shopObject;
+        [SerializeField] private GameObject _mainWindow;
+        [SerializeField] private GameObject _buyWindow;
+        
         private bool _isShowingShop;
 
         public bool IsShowingShop => _isShowingShop;
+
+        public GameObject MainWindow => _mainWindow;
+        public GameObject BuyWindow => _buyWindow;
 
         private void OnEnable()
         {
