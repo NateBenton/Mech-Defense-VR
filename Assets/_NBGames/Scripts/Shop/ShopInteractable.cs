@@ -32,18 +32,15 @@ namespace _NBGames.Scripts.Shop
             
             if (InventoryManager.Instance.ItemExists(_item))
             {
-                EventManager.ShowPurchasedText();
+                EventManager.EnablePurchasedText();
+                EventManager.ShowWeaponInfo(_item.ItemName, _item.Description, _item.PurchasePrice);
                 Destroy(gameObject);
                 return;
             }
 
+            EventManager.ShowWeaponInfo(_item.ItemName, _item.Description, _item.PurchasePrice);
             DisableInteractionByDefault();
             CheckAvailableFunds();
-        }
-
-        private void Start()
-        {
-            EventManager.ShowWeaponInfo(_item.ItemName, _item.Description, _item.PurchasePrice);
         }
 
         private void DisableInteractionByDefault()
@@ -61,12 +58,12 @@ namespace _NBGames.Scripts.Shop
                 }
                 else
                 {
-                    EventManager.ShowInsufficientFundsText();
+                    EventManager.EnableInsufficientFundsText();
                 }
             }
             else
             {
-                EventManager.ShowPurchasedText();
+                EventManager.EnablePurchasedText();
             }
         }
 
@@ -79,7 +76,8 @@ namespace _NBGames.Scripts.Shop
         {
             EventManager.RemoveMoney(_item.PurchasePrice);
             EventManager.AddItemToInventory(_item, 1);
-            EventManager.ShowPurchasedText();
+            EventManager.EnablePurchasedText();
+            EventManager.ShowWeaponInfo(_item.ItemName, _item.Description, _item.PurchasePrice);
             _grabInteractable.enabled = false;
             
             Destroy(gameObject);

@@ -38,18 +38,30 @@ namespace _NBGames.Scripts.Managers
             onShowWeaponInfo?.Invoke(itemName, description, price);
         }
 
-        public static event Action onShowInsufficientFundsText;
-        public static void ShowInsufficientFundsText()
+        public static event Action onEnableInsufficientFundsText;
+        public static void EnableInsufficientFundsText()
         {
-            onShowInsufficientFundsText?.Invoke();
+            onEnableInsufficientFundsText?.Invoke();
         }
 
-        public static event Action onShowPurchasedText;
+        public static event Action onEnablePurchasedText;
 
-        public static void ShowPurchasedText()
+        public static void EnablePurchasedText()
         {
-            onShowPurchasedText?.Invoke();
+            onEnablePurchasedText?.Invoke();
         }
+
+        /*public static event Action onDisableInsufficientFundsText;
+        public static void DisableInsufficientFundsText()
+        {
+            onDisableInsufficientFundsText?.Invoke();
+        }
+
+        public static event Action onDisablePurchasedText;
+        public static void DisablePurchasedText()
+        {
+            onDisablePurchasedText?.Invoke();
+        }*/
 
         public static event Action onToggleShopNextButton;
         public static void ToggleShopNextButton()

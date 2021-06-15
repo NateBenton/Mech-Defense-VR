@@ -430,6 +430,11 @@ MonoBehaviour:
   - {fileID: 7372816666675223236, guid: 2f36d14e64655c048be8111d3748119a, type: 3}
   - {fileID: 6056764516139256924, guid: 19f4bcdcbf66df9408db892561e7b373, type: 3}
   _weaponInteractableHolder: {fileID: 4759746202882348322}
+  _canvas: {fileID: 1653108466}
+  _weaponNameTextObject: {fileID: 934083983}
+  _weaponDescriptionTextObject: {fileID: 1602363260}
+  _purchasedTextObject: {fileID: 1394611435}
+  _insufficientFundsTextObject: {fileID: 1493454997}
 --- !u!4 &506987844
 Transform:
   m_ObjectHideFlags: 0
@@ -2132,7 +2137,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1653108462}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 2
   m_Camera: {fileID: 109051298}
@@ -3883,8 +3888,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3625729f3a37b41ac6123edb6d83eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 1653108466}
-  _weaponNameText: {fileID: 934083985}
-  _weaponDescriptionText: {fileID: 1602363262}
-  _purchasedText: {fileID: 1394611437}
-  _insufficientFundsText: {fileID: 1493454999}
