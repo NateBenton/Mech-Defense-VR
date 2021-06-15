@@ -32,6 +32,7 @@ namespace _NBGames.Scripts.Managers
             EventManager.onEnablePurchasedText += EnablePurchasedText;
             EventManager.onShowBuyOptions += EnableCanvas;
             EventManager.onShowWeaponInfo += ShowWeaponInfo;
+            EventManager.onBackButtonClicked += CloseBuyOptions;
         }
 
         private void OnDisable()
@@ -41,6 +42,7 @@ namespace _NBGames.Scripts.Managers
             EventManager.onEnablePurchasedText -= EnablePurchasedText;
             EventManager.onShowBuyOptions -= EnableCanvas;
             EventManager.onShowWeaponInfo -= ShowWeaponInfo;
+            EventManager.onBackButtonClicked -= CloseBuyOptions;
         }
 
         private void Awake()
@@ -170,6 +172,20 @@ namespace _NBGames.Scripts.Managers
         private void DisablePurchasedText()
         {
             _purchasedTextObject.SetActive(false);
+        }
+        
+        private void CloseBuyOptions()
+        {
+            if (_shownWeapon != null)
+            {
+                Destroy(_shownWeapon);
+            }
+
+            _shownWeaponIndex = 0;
+            DisablePurchasedText();
+            DisableInsufficientFundsText();
+            EventManager.ResetNavigationButtons();
+            _weaponInteractableHolder.SetActive(false);
         }
     }
 }

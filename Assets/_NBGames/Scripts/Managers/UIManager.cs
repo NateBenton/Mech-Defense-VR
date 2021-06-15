@@ -5,9 +5,7 @@ namespace _NBGames.Scripts.Managers
     public class UIManager : MonoBehaviour
     {
         [SerializeField] private GameObject _mainWindow;
-
-        private bool _isShowingShop;
-        public bool IsShowingShop => _isShowingShop;
+        [SerializeField] private GameObject _backButtonObject;
 
         private void OnEnable()
         {
@@ -22,6 +20,19 @@ namespace _NBGames.Scripts.Managers
         private void HideMainWindow()
         {
             _mainWindow.SetActive(false);
+            _backButtonObject.SetActive(true);
+        }
+
+        private void ShowMainWindow()
+        {
+            _mainWindow.SetActive(true);
+        }
+
+        public void BackButton()
+        {
+            _backButtonObject.SetActive(false);
+            ShowMainWindow();
+            EventManager.BackButtonClicked();
         }
     }
 }

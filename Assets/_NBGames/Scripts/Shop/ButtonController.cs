@@ -33,11 +33,15 @@ namespace _NBGames.Scripts.Shop
             EventManager.onShowBuyOptions += EnableNavigationButtons;
             EventManager.onToggleShopNextButton += ToggleNextButton;
             EventManager.onToggleShopPreviousButton += TogglePreviousButton;
+            EventManager.onResetNavigationButtons += ResetButtons;
         }
 
         private void OnDisable()
         {
             EventManager.onShowBuyOptions -= EnableNavigationButtons;
+            EventManager.onToggleShopNextButton -= ToggleNextButton;
+            EventManager.onToggleShopPreviousButton -= TogglePreviousButton;
+            EventManager.onResetNavigationButtons -= ResetButtons;
         }
 
         private void EnableNavigationButtons()
@@ -54,6 +58,12 @@ namespace _NBGames.Scripts.Shop
         private void TogglePreviousButton()
         {
             _previousButton.interactable = !_previousButton.interactable;
+        }
+        
+        private void ResetButtons()
+        {
+            _nextButton.interactable = true;
+            _previousButton.interactable = true;
         }
     }
 }

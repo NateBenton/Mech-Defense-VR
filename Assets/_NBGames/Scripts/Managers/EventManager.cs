@@ -31,6 +31,19 @@ namespace _NBGames.Scripts.Managers
             onShowBuyOptions?.Invoke();
         }
 
+        public static event Action onShowUpgradeOptions;
+
+        public static void ShowUpgradeOptions()
+        {
+            onShowUpgradeOptions?.Invoke();
+        }
+
+        public static event Action onBackButtonClicked;
+        public static void BackButtonClicked()
+        {
+            onBackButtonClicked?.Invoke();
+        }
+
         public static event Action<string, string, int> onShowWeaponInfo;
 
         public static void ShowWeaponInfo(string itemName, string description, int price)
@@ -51,18 +64,6 @@ namespace _NBGames.Scripts.Managers
             onEnablePurchasedText?.Invoke();
         }
 
-        /*public static event Action onDisableInsufficientFundsText;
-        public static void DisableInsufficientFundsText()
-        {
-            onDisableInsufficientFundsText?.Invoke();
-        }
-
-        public static event Action onDisablePurchasedText;
-        public static void DisablePurchasedText()
-        {
-            onDisablePurchasedText?.Invoke();
-        }*/
-
         public static event Action onToggleShopNextButton;
         public static void ToggleShopNextButton()
         {
@@ -73,6 +74,12 @@ namespace _NBGames.Scripts.Managers
         public static void ToggleShopPreviousButton()
         {
             onToggleShopPreviousButton?.Invoke();
+        }
+
+        public static event Action onResetNavigationButtons;
+        public static void ResetNavigationButtons()
+        {
+            onResetNavigationButtons?.Invoke();
         }
     }
 }
