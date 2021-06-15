@@ -7,63 +7,106 @@ namespace _NBGames.Scripts.Shop
 {
     public class ButtonController : MonoBehaviour
     {
-        [SerializeField] private GameObject _nextButtonObject;
-        [SerializeField] private GameObject _previousButtonObject;
+        [SerializeField] private GameObject _shopNextButtonObject;
+        [SerializeField] private GameObject _shopPreviousButtonObject;
+        [SerializeField] private GameObject _upgradeNextButtonObject;
+        [SerializeField] private GameObject _upgradePreviousButtonObject;
 
-        private Button _nextButton, _previousButton;
+        private Button _shopNextButton, _shopPreviousButton, _upgradeNextButton, _upgradePreviousButton;
 
         private void Awake()
         {
-            _nextButton = _nextButtonObject.GetComponent<Button>();
-            _previousButton = _previousButtonObject.GetComponent<Button>();
+            CacheComponents();
+        }
 
-            if (_nextButton == null)
+        private void CacheComponents()
+        {
+            _shopNextButton = _shopNextButtonObject.GetComponent<Button>();
+            _shopPreviousButton = _shopPreviousButtonObject.GetComponent<Button>();
+            _upgradeNextButton = _upgradeNextButtonObject.GetComponent<Button>();
+            _upgradePreviousButton = _upgradePreviousButtonObject.GetComponent<Button>();
+
+            if (_shopNextButton == null)
             {
-                Debug.LogError("nextButton is null on " + gameObject.name);
+                Debug.LogError("shopNextButton is null on " + gameObject.name);
             }
 
-            if (_previousButton == null)
+            if (_shopPreviousButton == null)
             {
-                Debug.LogError("previousButton is null on " + gameObject.name);
+                Debug.LogError("shopPreviousButton is null on " + gameObject.name);
+            }
+
+            if (_upgradePreviousButton == null)
+            {
+                Debug.LogError("upgradePreviousButton is null on " + gameObject.name);
+            }
+
+            if (_upgradeNextButton == null)
+            {
+                Debug.LogError("upgradeNextButton is null on " + gameObject.name);
             }
         }
 
         private void OnEnable()
         {
             EventManager.onShowBuyOptions += EnableNavigationButtons;
-            EventManager.onToggleShopNextButton += ToggleNextButton;
-            EventManager.onToggleShopPreviousButton += TogglePreviousButton;
+            EventManager.onToggleShopNextButton += ToggleShopNextButton;
+            EventManager.onToggleShopPreviousButton += ToggleShopPreviousButton;
             EventManager.onResetNavigationButtons += ResetButtons;
+            EventManager.onShowUpgradeOptions += EnableUpgradeNavigation;
+            EventManager.onToggleUpgradeNextButton += ToggleUpgradeNextButton;
+            EventManager.onToggleUpgradePreviousButton += ToggleUpgradePreviousButton;
         }
 
         private void OnDisable()
         {
             EventManager.onShowBuyOptions -= EnableNavigationButtons;
-            EventManager.onToggleShopNextButton -= ToggleNextButton;
-            EventManager.onToggleShopPreviousButton -= TogglePreviousButton;
+            EventManager.onToggleShopNextButton -= ToggleShopNextButton;
+            EventManager.onToggleShopPreviousButton -= ToggleShopPreviousButton;
             EventManager.onResetNavigationButtons -= ResetButtons;
+            EventManager.onShowUpgradeOptions -= EnableUpgradeNavigation;
+            EventManager.onToggleUpgradeNextButton -= ToggleUpgradeNextButton;
+            EventManager.onToggleUpgradePreviousButton -= ToggleUpgradePreviousButton;
         }
 
         private void EnableNavigationButtons()
         {
-            _nextButtonObject.SetActive(true);
-            _previousButtonObject.SetActive(true);
+            _shopNextButtonObject.SetActive(true);
+            _shopPreviousButtonObject.SetActive(true);
         }
         
-        private void ToggleNextButton()
+        private void EnableUpgradeNavigation()
         {
-            _nextButton.interactable = !_nextButton.interactable;
+            _upgradeNextButtonObject.SetActive(true);
+            _upgradePreviousButtonObject.SetActive(true);
         }
         
-        private void TogglePreviousButton()
+        private void ToggleShopNextButton()
         {
-            _previousButton.interactable = !_previousButton.interactable;
+            _shopNextButton.interactable = !_shopNextButton.interactable;
+        }
+        
+        private void ToggleShopPreviousButton()
+        {
+            _shopPreviousButton.interactable = !_shopPreviousButton.interactable;
+        }
+        
+        private void ToggleUpgradeNextButton()
+        {
+            _upgradeNextButton.interactable = !_upgradeNextButton.interactable;
+        }
+        
+        private void ToggleUpgradePreviousButton()
+        {
+            _upgradePreviousButton.interactable = !_upgradePreviousButton.interactable;
         }
         
         private void ResetButtons()
         {
-            _nextButton.interactable = true;
-            _previousButton.interactable = true;
+            _shopNextButton.interactable = true;
+            _shopPreviousButton.interactable = true;
+            _upgradeNextButton.interactable = true;
+            _upgradePreviousButton.interactable = true;
         }
     }
 }

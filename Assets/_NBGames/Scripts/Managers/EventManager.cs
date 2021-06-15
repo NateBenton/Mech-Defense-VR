@@ -75,6 +75,18 @@ namespace _NBGames.Scripts.Managers
         {
             onToggleShopPreviousButton?.Invoke();
         }
+        
+        public static event Action onToggleUpgradeNextButton;
+        public static void ToggleUpgradeNextButton()
+        {
+            onToggleUpgradeNextButton?.Invoke();
+        }
+
+        public static event Action onToggleUpgradePreviousButton;
+        public static void ToggleUpgradePreviousButton()
+        {
+            onToggleUpgradePreviousButton?.Invoke();
+        }
 
         public static event Action onResetNavigationButtons;
         public static void ResetNavigationButtons()

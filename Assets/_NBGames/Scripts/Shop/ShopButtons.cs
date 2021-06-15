@@ -13,7 +13,7 @@ namespace _NBGames.Scripts.Shop
 
         public void UpgradeWindowButton()
         {
-            
+            EventManager.ShowUpgradeOptions();
         }
     }
 }

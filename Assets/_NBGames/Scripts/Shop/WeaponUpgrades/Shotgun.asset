@@ -12,4 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bfee61b91143d543bb738071c7780b2, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
-  _weaponUpgrades: []
+  WeaponUpgrades:
+  - NewDamageAmount: 4.5
+    IsUnlocked: 0
+    Cost: 1000
+  - NewDamageAmount: 5.5
+    IsUnlocked: 0
+    Cost: 2000
+  - NewDamageAmount: 6.5
+    IsUnlocked: 0
+    Cost: 4000
+  - NewDamageAmount: 7.5
+    IsUnlocked: 0
+    Cost: 8000
+  - NewDamageAmount: 9
+    IsUnlocked: 0
+    Cost: 16000

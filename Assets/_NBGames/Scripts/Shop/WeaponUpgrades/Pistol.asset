@@ -12,3 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bfee61b91143d543bb738071c7780b2, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
+  WeaponUpgrades:
+  - NewDamageAmount: 3
+    IsUnlocked: 0
+    Cost: 500
+  - NewDamageAmount: 3.4
+    IsUnlocked: 0
+    Cost: 800
+  - NewDamageAmount: 3.8
+    IsUnlocked: 0
+    Cost: 1200
+  - NewDamageAmount: 4.2
+    IsUnlocked: 0
+    Cost: 3000
+  - NewDamageAmount: 5.6
+    IsUnlocked: 0
+    Cost: 8000

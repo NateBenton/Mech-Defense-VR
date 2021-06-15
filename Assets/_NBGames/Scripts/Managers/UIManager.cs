@@ -10,11 +10,13 @@ namespace _NBGames.Scripts.Managers
         private void OnEnable()
         {
             EventManager.onShowBuyOptions += HideMainWindow;
+            EventManager.onShowUpgradeOptions += HideMainWindow;
         }
 
         private void OnDisable()
         {
             EventManager.onShowBuyOptions -= HideMainWindow;
+            EventManager.onShowUpgradeOptions -= HideMainWindow;
         }
 
         private void HideMainWindow()

@@ -85,7 +85,6 @@ namespace _NBGames.Scripts.Managers
 
         private void ShowWeaponsForPurchase()
         {
-            _weaponInteractableHolder.SetActive(true);
             ToggleButtonsAtSetup();
             UpdateShownWeapon();
         }
@@ -185,7 +184,7 @@ namespace _NBGames.Scripts.Managers
             DisablePurchasedText();
             DisableInsufficientFundsText();
             EventManager.ResetNavigationButtons();
-            _weaponInteractableHolder.SetActive(false);
+            _canvas.enabled = false;
         }
     }
 }
