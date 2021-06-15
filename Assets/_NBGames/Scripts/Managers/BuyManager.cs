@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using _NBGames.Scripts.Shop;
 using UnityEngine;
@@ -23,10 +24,28 @@ namespace _NBGames.Scripts.Managers
             EventManager.onShowBuyOptions -= ShowWeaponsForPurchase;
         }
 
+        private void Awake()
+        {
+            if (_weaponsForSale.Count != _weaponInteractables.Count)
+            {
+                Debug.LogError("WeaponsForSale and WeaponInteractables size mismatch!");
+            }
+        }
+
         private void ShowWeaponsForPurchase()
         {
             _weaponInteractableHolder.SetActive(true);
+            ToggleButtonsAtSetup();
             UpdateShownWeapon();
+        }
+
+        private void ToggleButtonsAtSetup()
+        {
+            EventManager.ToggleShopPreviousButton();
+            if (OnlyOneWeaponForSale())
+            {
+                EventManager.ToggleShopNextButton();
+            }
         }
 
         private void UpdateShownWeapon()
@@ -41,12 +60,31 @@ namespace _NBGames.Scripts.Managers
 
         public void NextWeapon()
         {
-            Debug.Log("Next");
+            ++_shownWeaponIndex;
+            UpdateShownWeapon();
+
+            if (_shownWeaponIndex == (_weaponsForSale.Count - 1))
+            {
+                EventManager.ToggleShopNextButton();
+            }
+            
+            EventManager.ToggleShopPreviousButton();
         }
 
         public void PreviousWeapon()
         {
-            Debug.Log("Previous");
+            --_shownWeaponIndex;
+            UpdateShownWeapon();
+
+            if (_shownWeaponIndex == 0)
+            {
+                EventManager.ToggleShopPreviousButton();
+            }
+        }
+
+        private bool OnlyOneWeaponForSale()
+        {
+            return _weaponsForSale.Count == 1;
         }
     }
 }

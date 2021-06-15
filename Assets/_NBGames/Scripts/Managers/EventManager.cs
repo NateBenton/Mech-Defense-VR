@@ -50,5 +50,17 @@ namespace _NBGames.Scripts.Managers
         {
             onShowPurchasedText?.Invoke();
         }
+
+        public static event Action onToggleShopNextButton;
+        public static void ToggleShopNextButton()
+        {
+            onToggleShopNextButton?.Invoke();
+        }
+
+        public static event Action onToggleShopPreviousButton;
+        public static void ToggleShopPreviousButton()
+        {
+            onToggleShopPreviousButton?.Invoke();
+        }
     }
 }
