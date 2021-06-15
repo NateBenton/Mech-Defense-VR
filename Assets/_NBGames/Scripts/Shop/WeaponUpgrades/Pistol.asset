@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bfee61b91143d543bb738071c7780b2, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
+  AssociatedItem: {fileID: 11400000, guid: c2905265f1db67649b7149a30c3c5861, type: 2}
   WeaponUpgrades:
   - NewDamageAmount: 3
     IsUnlocked: 0

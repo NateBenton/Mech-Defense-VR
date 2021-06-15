@@ -49,64 +49,95 @@ namespace _NBGames.Scripts.Shop
 
         private void OnEnable()
         {
-            EventManager.onShowBuyOptions += EnableNavigationButtons;
-            EventManager.onToggleShopNextButton += ToggleShopNextButton;
-            EventManager.onToggleShopPreviousButton += ToggleShopPreviousButton;
+            EventManager.onEnableShopNextButton += EnableShopNextButton;
+            EventManager.onDisableShopNextButton += DisableShopNextButton;
+            
+            EventManager.onEnableShopPreviousButton += EnableShopPreviousButton;
+            EventManager.onDisableShopPreviousButton += DisableShopPreviousButton;
+            
             EventManager.onResetNavigationButtons += ResetButtons;
-            EventManager.onShowUpgradeOptions += EnableUpgradeNavigation;
-            EventManager.onToggleUpgradeNextButton += ToggleUpgradeNextButton;
-            EventManager.onToggleUpgradePreviousButton += ToggleUpgradePreviousButton;
+            
+            EventManager.onEnableUpgradeNextButton += EnableUpgradeNextButton;
+            EventManager.onDisableUpgradeNextButton += DisableUpgradeNextButton;
+            
+            EventManager.onEnableUpgradePreviousButton += EnableUpgradePreviousButton;
+            EventManager.onDisableUpgradePreviousButton += DisableUpgradePreviousButton;
+            
+            EventManager.onDisableUpgradeNavigation += DisableUpgradeNavigation;
+            
         }
 
         private void OnDisable()
         {
-            EventManager.onShowBuyOptions -= EnableNavigationButtons;
-            EventManager.onToggleShopNextButton -= ToggleShopNextButton;
-            EventManager.onToggleShopPreviousButton -= ToggleShopPreviousButton;
+            EventManager.onEnableShopNextButton -= EnableShopNextButton;
+            EventManager.onDisableShopNextButton -= DisableShopNextButton;
+            
+            EventManager.onEnableShopPreviousButton -= EnableShopPreviousButton;
+            EventManager.onDisableShopPreviousButton -= DisableShopPreviousButton;
+            
             EventManager.onResetNavigationButtons -= ResetButtons;
-            EventManager.onShowUpgradeOptions -= EnableUpgradeNavigation;
-            EventManager.onToggleUpgradeNextButton -= ToggleUpgradeNextButton;
-            EventManager.onToggleUpgradePreviousButton -= ToggleUpgradePreviousButton;
+            
+            EventManager.onEnableUpgradeNextButton -= EnableUpgradeNextButton;
+            EventManager.onDisableUpgradeNextButton -= DisableUpgradeNextButton;
+            
+            EventManager.onEnableUpgradePreviousButton -= EnableUpgradePreviousButton;
+            EventManager.onDisableUpgradePreviousButton -= DisableUpgradePreviousButton;
+            
+            EventManager.onDisableUpgradeNavigation -= DisableUpgradeNavigation;
         }
 
-        private void EnableNavigationButtons()
+        private void DisableUpgradeNavigation()
         {
-            _shopNextButtonObject.SetActive(true);
-            _shopPreviousButtonObject.SetActive(true);
+            _upgradeNextButton.interactable = false;
+            _upgradePreviousButton.interactable = false;
         }
         
-        private void EnableUpgradeNavigation()
+        private void EnableShopNextButton()
         {
-            _upgradeNextButtonObject.SetActive(true);
-            _upgradePreviousButtonObject.SetActive(true);
+            _shopNextButton.interactable = true;
         }
         
-        private void ToggleShopNextButton()
+        private void DisableShopNextButton()
         {
-            _shopNextButton.interactable = !_shopNextButton.interactable;
+            _shopNextButton.interactable = false;
         }
         
-        private void ToggleShopPreviousButton()
+        private void EnableShopPreviousButton()
         {
-            _shopPreviousButton.interactable = !_shopPreviousButton.interactable;
+            _shopPreviousButton.interactable = true;
+        }
+
+        private void DisableShopPreviousButton()
+        {
+            _shopPreviousButton.interactable = false;
         }
         
-        private void ToggleUpgradeNextButton()
+        private void EnableUpgradeNextButton()
         {
-            _upgradeNextButton.interactable = !_upgradeNextButton.interactable;
+            _upgradeNextButton.interactable = true;
         }
         
-        private void ToggleUpgradePreviousButton()
+        private void DisableUpgradeNextButton()
         {
-            _upgradePreviousButton.interactable = !_upgradePreviousButton.interactable;
+            _upgradeNextButton.interactable = false;
+        }
+        
+        private void EnableUpgradePreviousButton()
+        {
+            _upgradePreviousButton.interactable = true;
+        }
+        
+        private void DisableUpgradePreviousButton()
+        {
+            _upgradePreviousButton.interactable = false;
         }
         
         private void ResetButtons()
         {
-            _shopNextButton.interactable = true;
-            _shopPreviousButton.interactable = true;
-            _upgradeNextButton.interactable = true;
-            _upgradePreviousButton.interactable = true;
+            _shopNextButton.interactable = false;
+            _shopPreviousButton.interactable = false;
+            _upgradeNextButton.interactable = false;
+            _upgradePreviousButton.interactable = false;
         }
     }
 }

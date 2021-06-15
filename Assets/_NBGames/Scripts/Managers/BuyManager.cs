@@ -30,7 +30,6 @@ namespace _NBGames.Scripts.Managers
             EventManager.onShowBuyOptions += ShowWeaponsForPurchase;
             EventManager.onEnableInsufficientFundsText += EnableInsufficientFundsText;
             EventManager.onEnablePurchasedText += EnablePurchasedText;
-            EventManager.onShowBuyOptions += EnableCanvas;
             EventManager.onShowWeaponInfo += ShowWeaponInfo;
             EventManager.onBackButtonClicked += CloseBuyOptions;
         }
@@ -40,7 +39,6 @@ namespace _NBGames.Scripts.Managers
             EventManager.onShowBuyOptions -= ShowWeaponsForPurchase;
             EventManager.onEnableInsufficientFundsText -= EnableInsufficientFundsText;
             EventManager.onEnablePurchasedText -= EnablePurchasedText;
-            EventManager.onShowBuyOptions -= EnableCanvas;
             EventManager.onShowWeaponInfo -= ShowWeaponInfo;
             EventManager.onBackButtonClicked -= CloseBuyOptions;
         }
@@ -91,11 +89,12 @@ namespace _NBGames.Scripts.Managers
 
         private void ToggleButtonsAtSetup()
         {
-            EventManager.ToggleShopPreviousButton();
-            if (OnlyOneWeaponForSale())
+            if (!OnlyOneWeaponForSale())
             {
-                EventManager.ToggleShopNextButton();
+                EventManager.EnableShopNextButton();
             }
+            
+            EnableCanvas();
         }
 
         private void UpdateShownWeapon()
@@ -118,10 +117,10 @@ namespace _NBGames.Scripts.Managers
 
             if (_shownWeaponIndex == (_weaponsForSale.Count - 1))
             {
-                EventManager.ToggleShopNextButton();
+                EventManager.DisableShopNextButton();
             }
             
-            EventManager.ToggleShopPreviousButton();
+            EventManager.EnableShopPreviousButton();
         }
 
         public void PreviousWeapon()
@@ -133,8 +132,8 @@ namespace _NBGames.Scripts.Managers
             UpdateShownWeapon();
 
             if (_shownWeaponIndex != 0) return;
-            EventManager.ToggleShopPreviousButton();
-            EventManager.ToggleShopNextButton();
+            EventManager.DisableShopPreviousButton();
+            EventManager.EnableShopNextButton();
         }
 
         private bool OnlyOneWeaponForSale()

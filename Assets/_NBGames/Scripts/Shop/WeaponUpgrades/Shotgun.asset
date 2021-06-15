@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bfee61b91143d543bb738071c7780b2, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
+  AssociatedItem: {fileID: 11400000, guid: 98b445ad0376d9b4eb211828102dc006, type: 2}
   WeaponUpgrades:
   - NewDamageAmount: 4.5
     IsUnlocked: 0

@@ -64,28 +64,58 @@ namespace _NBGames.Scripts.Managers
             onEnablePurchasedText?.Invoke();
         }
 
-        public static event Action onToggleShopNextButton;
-        public static void ToggleShopNextButton()
+        public static event Action onEnableShopNextButton;
+        public static void EnableShopNextButton()
         {
-            onToggleShopNextButton?.Invoke();
-        }
-
-        public static event Action onToggleShopPreviousButton;
-        public static void ToggleShopPreviousButton()
-        {
-            onToggleShopPreviousButton?.Invoke();
+            onEnableShopNextButton?.Invoke();
         }
         
-        public static event Action onToggleUpgradeNextButton;
-        public static void ToggleUpgradeNextButton()
+        public static event Action onDisableShopNextButton;
+        public static void DisableShopNextButton()
         {
-            onToggleUpgradeNextButton?.Invoke();
+            onDisableShopNextButton?.Invoke();
         }
 
-        public static event Action onToggleUpgradePreviousButton;
-        public static void ToggleUpgradePreviousButton()
+        public static event Action onEnableShopPreviousButton;
+        public static void EnableShopPreviousButton()
         {
-            onToggleUpgradePreviousButton?.Invoke();
+            onEnableShopPreviousButton?.Invoke();
+        }
+        
+        public static event Action onDisableShopPreviousButton;
+        public static void DisableShopPreviousButton()
+        {
+            onDisableShopPreviousButton?.Invoke();
+        }
+        
+        public static event Action onEnableUpgradeNextButton;
+        public static void EnableUpgradeNextButton()
+        {
+            onEnableUpgradeNextButton?.Invoke();
+        }
+        
+        public static event Action onDisableUpgradeNextButton;
+        public static void DisableUpgradeNextButton()
+        {
+            onDisableUpgradeNextButton?.Invoke();
+        }
+
+        public static event Action onEnableUpgradePreviousButton;
+        public static void EnableUpgradePreviousButton()
+        {
+            onEnableUpgradePreviousButton?.Invoke();
+        }
+        
+        public static event Action onDisableUpgradePreviousButton;
+        public static void DisableUpgradePreviousButton()
+        {
+            onDisableUpgradePreviousButton?.Invoke();
+        }
+
+        public static event Action onDisableUpgradeNavigation;
+        public static void DisableUpgradeNavigation()
+        {
+            onDisableUpgradeNavigation?.Invoke();
         }
 
         public static event Action onResetNavigationButtons;

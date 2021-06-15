@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using _NBGames.Scripts.Inventory;
 using _NBGames.Scripts.Shop;
 using TMPro;
 using UnityEngine;
@@ -13,10 +15,12 @@ namespace _NBGames.Scripts.Managers
         [SerializeField] private GameObject _currentLevelObject;
         [SerializeField] private GameObject _upgradeLevelObject;
         [SerializeField] private GameObject _insufficientFundsObject;
+        [SerializeField] private GameObject _noWeaponsToUpgradeObject;
 
         private TextMeshProUGUI _currentLevelText, _upgradeLevelText;
         private GameObject _shownUpgrade;
         private int _shownUpgradeIndex;
+        private List<WeaponUpgrade> _adjustedWeaponUpgrades = new List<WeaponUpgrade>();
         
         private void OnEnable()
         {
@@ -60,22 +64,57 @@ namespace _NBGames.Scripts.Managers
         
         private void ShowUpgrades()
         {
-            ToggleButtonsAtSetup();
-            UpdateShownUpgrade();
+            AdjustUpgradesShown();
+            
+            if (UpgradesExist())
+            {
+                ToggleButtonsAtSetup();
+                UpdateShownUpgrade();
+            }
+            else
+            {
+                EnableNoWeaponsMessage();
+                EventManager.DisableUpgradeNavigation();
+            }
+        }
+
+        private void AdjustUpgradesShown()
+        {
+            foreach (var upgrade in _weaponUpgrades)
+            {
+                if (InventoryManager.Instance.ItemExists(upgrade.AssociatedItem))
+                {
+                    _adjustedWeaponUpgrades.Add(upgrade);
+                }
+            }
         }
 
         private void ToggleButtonsAtSetup()
         {
-            EventManager.ToggleUpgradePreviousButton();
-            if (OnlyOneUpgrade())
+            if (!OnlyOneUpgrade())
             {
-                EventManager.ToggleUpgradeNextButton();
+                EventManager.EnableUpgradeNextButton();
             }
         }
 
         private bool OnlyOneUpgrade()
         {
-            return _weaponUpgrades.Length == 1;
+            return _adjustedWeaponUpgrades.Count == 1;
+        }
+
+        private bool UpgradesExist()
+        {
+            return _adjustedWeaponUpgrades.Count > 0;
+        }
+
+        private void EnableNoWeaponsMessage()
+        {
+            _noWeaponsToUpgradeObject.SetActive(true);
+        }
+        
+        private void DisableNoWeaponsMessage()
+        {
+            _noWeaponsToUpgradeObject.SetActive(false);
         }
         
         private void UpdateShownUpgrade()
@@ -86,6 +125,33 @@ namespace _NBGames.Scripts.Managers
             }
             
             _shownUpgrade = Instantiate(_upgradeInteractables[_shownUpgradeIndex], _upgradeInteractableHolder.transform);
+        }
+        
+        public void NextUpgrade()
+        {
+            DisableInsufficientFundsText();
+            
+            ++_shownUpgradeIndex;
+            UpdateShownUpgrade();
+
+            if (_shownUpgradeIndex == (_adjustedWeaponUpgrades.Count - 1))
+            {
+                EventManager.DisableUpgradeNextButton();
+            }
+            
+            EventManager.EnableUpgradePreviousButton();
+        }
+        
+        public void PreviousUpgrade()
+        {
+            DisableInsufficientFundsText();
+            
+            --_shownUpgradeIndex;
+            UpdateShownUpgrade();
+
+            if (_shownUpgradeIndex != 0) return;
+            EventManager.DisableUpgradePreviousButton();
+            EventManager.EnableUpgradeNextButton();
         }
         
         private void EnableCanvas()
@@ -108,6 +174,8 @@ namespace _NBGames.Scripts.Managers
             _shownUpgradeIndex = 0;
             DisableInsufficientFundsText();
             EventManager.ResetNavigationButtons();
+            _adjustedWeaponUpgrades.Clear();
+            DisableNoWeaponsMessage();
             _canvas.enabled = false;
         }
     }
