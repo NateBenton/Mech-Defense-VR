@@ -18,7 +18,9 @@ namespace _NBGames.Scripts.Managers
         [SerializeField] private GameObject _insufficientFundsObject;
         [SerializeField] private GameObject _noWeaponsToUpgradeObject;
         [SerializeField] private GameObject _weaponNameObject;
-
+        [SerializeField] private GameObject _damageUpgradeObject;
+        [SerializeField] private GameObject _powerUpgradeObject;
+        
         private TextMeshProUGUI _currentDamageAmountText, _upgradeDamageText, _upgradeCostText, _weaponNameText;
         private GameObject _shownUpgrade;
         private int _shownUpgradeIndex;
@@ -85,14 +87,36 @@ namespace _NBGames.Scripts.Managers
             
             if (UpgradesExist())
             {
+                EnableTextObjects();
                 ToggleButtonsAtSetup();
                 UpdateShownUpgrade();
             }
             else
             {
                 EnableNoWeaponsMessage();
+                DisableTextObjects();
                 EventManager.DisableUpgradeNavigation();
             }
+        }
+
+        private void EnableTextObjects()
+        {
+            _upgradeCostObject.SetActive(true);
+            _upgradeDamageObject.SetActive(true);
+            _weaponNameObject.SetActive(true);
+            _currentDamageAmountObject.SetActive(true);
+            _damageUpgradeObject.SetActive(true);
+            _powerUpgradeObject.SetActive(true);
+        }
+
+        private void DisableTextObjects()
+        {
+            _upgradeCostObject.SetActive(false);
+            _upgradeDamageObject.SetActive(false);
+            _weaponNameObject.SetActive(false);
+            _currentDamageAmountObject.SetActive(false);
+            _damageUpgradeObject.SetActive(false);
+            _powerUpgradeObject.SetActive(false);
         }
 
         private void AdjustUpgradesShown()
@@ -149,9 +173,10 @@ namespace _NBGames.Scripts.Managers
         {
             GetValuesForText();
             _upgradeDamageText.text = _newDamageAmount.ToString();
-            _upgradeCostText.text = _upgradeCost.ToString();
+            _upgradeCostText.text = $"Cost: {_upgradeCost}";
             _currentDamageAmountText.text = _currentDamageAmount.ToString();
             _weaponNameText.text = _weaponName;
+            _insufficientFundsObject.SetActive(true);
         }
 
         private void GetValuesForText()
