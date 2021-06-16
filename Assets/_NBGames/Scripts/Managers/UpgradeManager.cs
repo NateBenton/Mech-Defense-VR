@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using _NBGames.Scripts.Inventory;
 using _NBGames.Scripts.Shop;
@@ -55,6 +56,14 @@ namespace _NBGames.Scripts.Managers
             }
 
             CacheTextComponents();
+        }
+
+        private void Start()
+        {
+            for (var i = 0; i < _weaponUpgrades.Length; i++)
+            {
+                _weaponUpgrades[i].WeaponUpgrades[0].NewDamageAmount = WeaponManager.Instance.DamageAmounts[i];
+            }
         }
 
         private void CacheTextComponents()
@@ -291,7 +300,7 @@ namespace _NBGames.Scripts.Managers
             var weaponUpgrades = _weaponUpgrades[_shownUpgradeIndex].WeaponUpgrades;
 
             weaponUpgrades[_latestUpgradeIndex].IsUnlocked = true;
-            //WeaponManager.Instance.
+            WeaponManager.Instance.UpgradeWeaponDamage(_shownUpgradeIndex, _newDamageAmount);
             EventManager.RemoveMoney(_upgradeCost);
 
             PopulateTextFields();

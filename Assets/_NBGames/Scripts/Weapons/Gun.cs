@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using _NBGames.Scripts.Interfaces;
+using _NBGames.Scripts.Inventory;
+using _NBGames.Scripts.Managers;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -15,7 +17,7 @@ namespace _NBGames.Scripts.Weapons
         [SerializeField] private LayerMask _damageableLayerMask;
         
         [Header("Gun Setup")]
-        [SerializeField] private float _baseDamage = 2.8f;
+        [SerializeField] private Item _associatedItem;
 
         [Header("Haptic Feedback")]
         [SerializeField] private float _amplitude;
@@ -39,14 +41,24 @@ namespace _NBGames.Scripts.Weapons
 
         private void Awake()
         {
-            _currentDamage = _baseDamage;
-            
             _rigidbody = GetComponent<Rigidbody>();
 
             if (_rigidbody == null)
             {
                 Debug.LogError("Rigidbody somehow missing on " + gameObject.name);
             }
+
+            if (_associatedItem == null)
+            {
+                Debug.LogError("associatedItem is null on " + gameObject.name);
+            }
+            
+            GetDamageAmount();
+        }
+
+        private void GetDamageAmount()
+        {
+            _currentDamage = WeaponManager.Instance.GetDamageAmount(_associatedItem);
         }
 
         private void TriggerPulled(ActivateEventArgs arg0)
