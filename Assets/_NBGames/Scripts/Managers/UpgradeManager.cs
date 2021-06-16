@@ -28,12 +28,13 @@ namespace _NBGames.Scripts.Managers
         private float _newDamageAmount, _currentDamageAmount;
         private int _upgradeCost, _latestUpgradeIndex;
         private string _weaponName;
-        
+
         private void OnEnable()
         {
             EventManager.onShowUpgradeOptions += ShowUpgrades;
             EventManager.onShowUpgradeOptions += EnableCanvas;
             EventManager.onBackButtonClicked += CloseUpgradeOptions;
+            EventManager.onUpgradeWeapon += UpgradeWeapon;
         }
         
         private void OnDisable()
@@ -41,6 +42,7 @@ namespace _NBGames.Scripts.Managers
             EventManager.onShowUpgradeOptions -= ShowUpgrades;
             EventManager.onShowUpgradeOptions -= EnableCanvas;
             EventManager.onBackButtonClicked -= CloseUpgradeOptions;
+            EventManager.onUpgradeWeapon -= UpgradeWeapon;
         }
         
         private void Awake()
@@ -167,6 +169,7 @@ namespace _NBGames.Scripts.Managers
             
             _shownUpgrade = Instantiate(_upgradeInteractables[_shownUpgradeIndex], _upgradeInteractableHolder.transform);
             PopulateTextFields();
+            CheckAvailableFunds();
         }
         
         private void PopulateTextFields()
@@ -176,7 +179,6 @@ namespace _NBGames.Scripts.Managers
             _upgradeCostText.text = $"Cost: {_upgradeCost}";
             _currentDamageAmountText.text = _currentDamageAmount.ToString();
             _weaponNameText.text = _weaponName;
-            _insufficientFundsObject.SetActive(true);
         }
 
         private void GetValuesForText()
@@ -193,6 +195,18 @@ namespace _NBGames.Scripts.Managers
                 _newDamageAmount = weaponUpgrades[_latestUpgradeIndex + 1].NewDamageAmount;
                 _currentDamageAmount = weaponUpgrades[_latestUpgradeIndex].NewDamageAmount;
                 _weaponName = _weaponUpgrades[_shownUpgradeIndex].AssociatedItem.ItemName;
+            }
+        }
+
+        private void CheckAvailableFunds()
+        {
+            if (GameManager.Instance.CurrentMoney >= _upgradeCost)
+            {
+                EventManager.MakeUpgradePurchasable();
+            }
+            else
+            {
+                _insufficientFundsObject.SetActive(true);
             }
         }
         
@@ -246,6 +260,17 @@ namespace _NBGames.Scripts.Managers
             _adjustedWeaponUpgrades.Clear();
             DisableNoWeaponsMessage();
             _canvas.enabled = false;
+        }
+
+        private void UpgradeWeapon()
+        {
+            var weaponUpgrades = _weaponUpgrades[_shownUpgradeIndex].WeaponUpgrades;
+            
+            EventManager.RemoveMoney(weaponUpgrades[_latestUpgradeIndex + 1].Cost);
+            weaponUpgrades[_latestUpgradeIndex].IsUnlocked = true;
+            
+            PopulateTextFields();
+            CheckAvailableFunds();
         }
     }
 }

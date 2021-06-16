@@ -1,4 +1,3 @@
-using System;
 using _NBGames.Scripts.Inventory;
 using _NBGames.Scripts.Managers;
 using UnityEngine;

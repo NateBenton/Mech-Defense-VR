@@ -129,5 +129,23 @@ namespace _NBGames.Scripts.Managers
         {
             onResetNavigationButtons?.Invoke();
         }
+
+        public static event Action onMakeUpgradePurchasable;
+        public static void MakeUpgradePurchasable()
+        {
+            onMakeUpgradePurchasable?.Invoke();
+        }
+
+        public static event Action onUpgradeWeapon;
+        public static void UpgradeWeapon()
+        {
+            onUpgradeWeapon?.Invoke();
+        }
+
+        public static event Action onGripReleased;
+        public static void GripReleased()
+        {
+            onGripReleased?.Invoke();
+        }
     }
 }
