@@ -12,15 +12,20 @@ namespace _NBGames.Scripts.Managers
         [SerializeField] private GameObject[] _upgradeInteractables;
         [SerializeField] private GameObject _upgradeInteractableHolder;
         [SerializeField] private Canvas _canvas;
-        [SerializeField] private GameObject _currentLevelObject;
-        [SerializeField] private GameObject _upgradeLevelObject;
+        [SerializeField] private GameObject _currentDamageAmountObject;
+        [SerializeField] private GameObject _upgradeDamageObject;
+        [SerializeField] private GameObject _upgradeCostObject;
         [SerializeField] private GameObject _insufficientFundsObject;
         [SerializeField] private GameObject _noWeaponsToUpgradeObject;
+        [SerializeField] private GameObject _weaponNameObject;
 
-        private TextMeshProUGUI _currentLevelText, _upgradeLevelText;
+        private TextMeshProUGUI _currentDamageAmountText, _upgradeDamageText, _upgradeCostText, _weaponNameText;
         private GameObject _shownUpgrade;
         private int _shownUpgradeIndex;
         private List<WeaponUpgrade> _adjustedWeaponUpgrades = new List<WeaponUpgrade>();
+        private float _newDamageAmount, _currentDamageAmount;
+        private int _upgradeCost;
+        private string _weaponName;
         
         private void OnEnable()
         {
@@ -48,17 +53,29 @@ namespace _NBGames.Scripts.Managers
 
         private void CacheTextComponents()
         {
-            _currentLevelText = _currentLevelObject.GetComponent<TextMeshProUGUI>();
-            _upgradeLevelText = _upgradeLevelObject.GetComponent<TextMeshProUGUI>();
+            _currentDamageAmountText = _currentDamageAmountObject.GetComponent<TextMeshProUGUI>();
+            _upgradeDamageText = _upgradeDamageObject.GetComponent<TextMeshProUGUI>();
+            _upgradeCostText = _upgradeCostObject.GetComponent<TextMeshProUGUI>();
+            _weaponNameText = _weaponNameObject.GetComponent<TextMeshProUGUI>();
             
-            if (_currentLevelText == null)
+            if (_currentDamageAmountText == null)
             {
                 Debug.LogError("currentLevelText is null on " + gameObject.name);
             }
             
-            if (_upgradeLevelText == null)
+            if (_upgradeDamageText == null)
             {
                 Debug.LogError("upgradeLevelText is null on " + gameObject.name);
+            }
+            
+            if (_upgradeCostText == null)
+            {
+                Debug.LogError("upgradeCostText is null on " + gameObject.name);
+            }
+            
+            if (_weaponNameText == null)
+            {
+                Debug.LogError("weaponNameText is null on " + gameObject.name);
             }
         }
         
@@ -125,6 +142,29 @@ namespace _NBGames.Scripts.Managers
             }
             
             _shownUpgrade = Instantiate(_upgradeInteractables[_shownUpgradeIndex], _upgradeInteractableHolder.transform);
+            PopulateTextFields();
+        }
+        
+        private void PopulateTextFields()
+        {
+            GetValuesForText();
+            _upgradeDamageText.text = _newDamageAmount.ToString();
+            _upgradeCostText.text = _upgradeCost.ToString();
+            _currentDamageAmountText.text = _currentDamageAmount.ToString();
+            _weaponNameText.text = _weaponName;
+        }
+
+        private void GetValuesForText()
+        {
+            var weaponUpgrades = _weaponUpgrades[_shownUpgradeIndex].WeaponUpgrades;
+            for (var i = 0; i < weaponUpgrades.Length; i++)
+            {
+                if (weaponUpgrades[i].IsUnlocked) continue;
+                _upgradeCost = weaponUpgrades[i].Cost;
+                _newDamageAmount = weaponUpgrades[i].NewDamageAmount;
+                _currentDamageAmount = weaponUpgrades[i - 1].NewDamageAmount;
+                _weaponName = _weaponUpgrades[_shownUpgradeIndex].AssociatedItem.ItemName;
+            }
         }
         
         public void NextUpgrade()

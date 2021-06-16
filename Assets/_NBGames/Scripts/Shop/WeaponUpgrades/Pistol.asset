@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AssociatedItem: {fileID: 11400000, guid: c2905265f1db67649b7149a30c3c5861, type: 2}
   WeaponUpgrades:
+  - NewDamageAmount: 2.8
+    IsUnlocked: 1
+    Cost: 0
   - NewDamageAmount: 3
     IsUnlocked: 0
     Cost: 500
