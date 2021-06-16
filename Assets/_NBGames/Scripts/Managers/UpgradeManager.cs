@@ -24,7 +24,7 @@ namespace _NBGames.Scripts.Managers
         private int _shownUpgradeIndex;
         private List<WeaponUpgrade> _adjustedWeaponUpgrades = new List<WeaponUpgrade>();
         private float _newDamageAmount, _currentDamageAmount;
-        private int _upgradeCost;
+        private int _upgradeCost, _latestUpgradeIndex;
         private string _weaponName;
         
         private void OnEnable()
@@ -159,10 +159,14 @@ namespace _NBGames.Scripts.Managers
             var weaponUpgrades = _weaponUpgrades[_shownUpgradeIndex].WeaponUpgrades;
             for (var i = 0; i < weaponUpgrades.Length; i++)
             {
-                if (weaponUpgrades[i].IsUnlocked) continue;
-                _upgradeCost = weaponUpgrades[i].Cost;
-                _newDamageAmount = weaponUpgrades[i].NewDamageAmount;
-                _currentDamageAmount = weaponUpgrades[i - 1].NewDamageAmount;
+                if (weaponUpgrades[i].IsUnlocked)
+                {
+                    _latestUpgradeIndex = i;
+                    continue;
+                }
+                _upgradeCost = weaponUpgrades[_latestUpgradeIndex + 1].Cost;
+                _newDamageAmount = weaponUpgrades[_latestUpgradeIndex + 1].NewDamageAmount;
+                _currentDamageAmount = weaponUpgrades[_latestUpgradeIndex].NewDamageAmount;
                 _weaponName = _weaponUpgrades[_shownUpgradeIndex].AssociatedItem.ItemName;
             }
         }
