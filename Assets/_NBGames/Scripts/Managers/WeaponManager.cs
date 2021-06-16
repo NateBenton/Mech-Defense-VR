@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using _NBGames.Scripts.Managers;
+using _NBGames.Scripts.Misc;
 using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
@@ -8,19 +9,9 @@ public class WeaponManager : MonoBehaviour
     private static WeaponManager _instance;
 
     [Header("Weapon Holders")] 
-    [SerializeField] private GameObject _primaryPistolHolder;
-    [SerializeField] private GameObject _secondaryPistolHolder;
-    [SerializeField] private GameObject _shotgunHolder;
-
-    [Header("Unlocked Weapons")] 
-    [SerializeField] private bool _hasPrimaryPistol = true;
-    [SerializeField] private bool _hasSecondaryPistol = true;
-    [SerializeField] private bool _hasShotgun = true;
-
-    public bool HasPrimaryPistol => _hasPrimaryPistol;
-    public bool HasSecondaryPistol => _hasSecondaryPistol;
-    public bool HasShotgun => _hasShotgun;
-
+    [SerializeField] private WeaponHolder[] _weaponHolders;
+    [SerializeField] private float[] _damageAmounts;
+    
     public static WeaponManager Instance
     {
         get
@@ -47,24 +38,22 @@ public class WeaponManager : MonoBehaviour
             Destroy(this.gameObject);
         }
         
-        EnableDefaultWeapons();
+        EnableWeapons();
     }
 
-    private void EnableDefaultWeapons()
+    private void EnableWeapons()
     {
-        if (_hasPrimaryPistol)
+        foreach (var weaponHolder in _weaponHolders)
         {
-            _primaryPistolHolder.SetActive(true);
+            if (InventoryManager.Instance.ItemExists(weaponHolder.AssociatedItem))
+            {
+                weaponHolder.WeaponHolderObject.SetActive(true);
+            }
         }
+    }
 
-        if (_hasSecondaryPistol)
-        {
-            _secondaryPistolHolder.SetActive(true);
-        }
-
-        if (_hasShotgun)
-        {
-            _shotgunHolder.SetActive(true);
-        }
+    public void UpgradeWeaponDamage(int index, float newDamageAmount)
+    {
+        _damageAmounts[index] = newDamageAmount;
     }
 }

@@ -20,14 +20,16 @@ namespace _NBGames.Scripts.Managers
         [SerializeField] private GameObject _weaponNameObject;
         [SerializeField] private GameObject _damageUpgradeObject;
         [SerializeField] private GameObject _powerUpgradeObject;
+        [SerializeField] private GameObject _allUpgradedObject;
         
         private TextMeshProUGUI _currentDamageAmountText, _upgradeDamageText, _upgradeCostText, _weaponNameText;
         private GameObject _shownUpgrade;
         private int _shownUpgradeIndex;
         private List<WeaponUpgrade> _adjustedWeaponUpgrades = new List<WeaponUpgrade>();
         private float _newDamageAmount, _currentDamageAmount;
-        private int _upgradeCost, _latestUpgradeIndex;
+        private int _upgradeCost, _latestUpgradeIndex, _currentUpgradeIndex;
         private string _weaponName;
+        private bool _allUpgraded;
 
         private void OnEnable()
         {
@@ -169,7 +171,15 @@ namespace _NBGames.Scripts.Managers
             
             _shownUpgrade = Instantiate(_upgradeInteractables[_shownUpgradeIndex], _upgradeInteractableHolder.transform);
             PopulateTextFields();
-            CheckAvailableFunds();
+
+            if (_allUpgraded)
+            {
+                EventManager.WeaponFullyUpgraded();
+            }
+            else
+            {
+                CheckAvailableFunds();
+            }
         }
         
         private void PopulateTextFields()
@@ -183,19 +193,30 @@ namespace _NBGames.Scripts.Managers
 
         private void GetValuesForText()
         {
+            _allUpgraded = true;
             var weaponUpgrades = _weaponUpgrades[_shownUpgradeIndex].WeaponUpgrades;
+            
             for (var i = 0; i < weaponUpgrades.Length; i++)
             {
                 if (weaponUpgrades[i].IsUnlocked)
                 {
-                    _latestUpgradeIndex = i;
+                    _currentUpgradeIndex = i;
                     continue;
                 }
-                _upgradeCost = weaponUpgrades[_latestUpgradeIndex + 1].Cost;
-                _newDamageAmount = weaponUpgrades[_latestUpgradeIndex + 1].NewDamageAmount;
-                _currentDamageAmount = weaponUpgrades[_latestUpgradeIndex].NewDamageAmount;
+                
+                _latestUpgradeIndex = i;
+
+                _upgradeCost = weaponUpgrades[i].Cost;
+                _newDamageAmount = weaponUpgrades[i].NewDamageAmount;
+                _currentDamageAmount = weaponUpgrades[_currentUpgradeIndex].NewDamageAmount;
                 _weaponName = _weaponUpgrades[_shownUpgradeIndex].AssociatedItem.ItemName;
+                _allUpgraded = false;
+                break;
             }
+
+            if (!_allUpgraded) return;
+            DisableTextObjects();
+            _allUpgradedObject.SetActive(true);
         }
 
         private void CheckAvailableFunds()
@@ -212,7 +233,8 @@ namespace _NBGames.Scripts.Managers
         
         public void NextUpgrade()
         {
-            DisableInsufficientFundsText();
+            DisableCircumstantialText();
+            EnableTextObjects();
             
             ++_shownUpgradeIndex;
             UpdateShownUpgrade();
@@ -227,7 +249,8 @@ namespace _NBGames.Scripts.Managers
         
         public void PreviousUpgrade()
         {
-            DisableInsufficientFundsText();
+            DisableCircumstantialText();
+            EnableTextObjects();
             
             --_shownUpgradeIndex;
             UpdateShownUpgrade();
@@ -242,9 +265,10 @@ namespace _NBGames.Scripts.Managers
             _canvas.enabled = true;
         }
         
-        private void DisableInsufficientFundsText()
+        private void DisableCircumstantialText()
         {
             _insufficientFundsObject.SetActive(false);
+            _allUpgradedObject.SetActive(false);
         }
         
         private void CloseUpgradeOptions()
@@ -255,7 +279,7 @@ namespace _NBGames.Scripts.Managers
             }
 
             _shownUpgradeIndex = 0;
-            DisableInsufficientFundsText();
+            DisableCircumstantialText();
             EventManager.ResetNavigationButtons();
             _adjustedWeaponUpgrades.Clear();
             DisableNoWeaponsMessage();
@@ -265,14 +289,21 @@ namespace _NBGames.Scripts.Managers
         private void UpgradeWeapon()
         {
             var weaponUpgrades = _weaponUpgrades[_shownUpgradeIndex].WeaponUpgrades;
-            
-            EventManager.RemoveMoney(weaponUpgrades[_latestUpgradeIndex + 1].Cost);
-            weaponUpgrades[_latestUpgradeIndex + 1].IsUnlocked = true;
-            
-            //TODO: prevent going out of bounds in array
-            
+
+            weaponUpgrades[_latestUpgradeIndex].IsUnlocked = true;
+            //WeaponManager.Instance.
+            EventManager.RemoveMoney(_upgradeCost);
+
             PopulateTextFields();
-            CheckAvailableFunds();
+
+            if (_allUpgraded)
+            {
+                EventManager.WeaponFullyUpgraded();
+            }
+            else
+            {
+                CheckAvailableFunds();
+            }
         }
     }
 }

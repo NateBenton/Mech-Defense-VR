@@ -19,6 +19,7 @@ namespace _NBGames.Scripts.Shop
             _grabInteractable.selectEntered.AddListener(UpgradeWeapon);
             EventManager.onMakeUpgradePurchasable += MakeAvailableForPurchase;
             EventManager.onGripReleased += EnableGrabbing;
+            EventManager.onWeaponFullyUpgraded += DisableInteraction;
         }
         
         private void OnDisable()
@@ -26,6 +27,7 @@ namespace _NBGames.Scripts.Shop
             _grabInteractable.selectEntered.RemoveListener(UpgradeWeapon);
             EventManager.onMakeUpgradePurchasable -= MakeAvailableForPurchase;
             EventManager.onGripReleased -= EnableGrabbing;
+            EventManager.onWeaponFullyUpgraded -= DisableInteraction;
         }
 
         private void Awake()

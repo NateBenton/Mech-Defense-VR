@@ -147,5 +147,11 @@ namespace _NBGames.Scripts.Managers
         {
             onGripReleased?.Invoke();
         }
+
+        public static event Action onWeaponFullyUpgraded;
+        public static void WeaponFullyUpgraded()
+        {
+            onWeaponFullyUpgraded?.Invoke();
+        }
     }
 }
