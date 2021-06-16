@@ -267,7 +267,9 @@ namespace _NBGames.Scripts.Managers
             var weaponUpgrades = _weaponUpgrades[_shownUpgradeIndex].WeaponUpgrades;
             
             EventManager.RemoveMoney(weaponUpgrades[_latestUpgradeIndex + 1].Cost);
-            weaponUpgrades[_latestUpgradeIndex].IsUnlocked = true;
+            weaponUpgrades[_latestUpgradeIndex + 1].IsUnlocked = true;
+            
+            //TODO: prevent going out of bounds in array
             
             PopulateTextFields();
             CheckAvailableFunds();
