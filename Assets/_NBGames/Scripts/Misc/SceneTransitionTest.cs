@@ -1,18 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class SceneTransitionTest : MonoBehaviour
+namespace _NBGames.Scripts.Misc
 {
-    // Start is called before the first frame update
-    void Start()
+    public class SceneTransitionTest : MonoBehaviour
     {
-        
-    }
+        public string levelToOpen;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public void ButtonPressed()
+        {
+            SceneManager.LoadScene(levelToOpen);
+        }
     }
 }

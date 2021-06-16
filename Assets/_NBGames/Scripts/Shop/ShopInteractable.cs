@@ -78,7 +78,7 @@ namespace _NBGames.Scripts.Shop
             EventManager.EnablePurchasedText();
             EventManager.ShowWeaponInfo(_item.ItemName, _item.Description, _item.PurchasePrice);
             _grabInteractable.enabled = false;
-            
+
             Destroy(gameObject);
         }
     }

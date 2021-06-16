@@ -26,17 +26,19 @@ namespace _NBGames.Scripts.Weapons
         [Header("Gun Holder")] 
         [SerializeField] private Transform _gunHolder;
 
-        private float _currentDamage;
+        [SerializeField] private float _currentDamage;
         private Rigidbody _rigidbody;
 
         private void OnEnable()
         {
             _grabInteractable.activated.AddListener(TriggerPulled);
+            EventManager.onRefreshWeaponDamage += GetDamageAmount;
         }
         
         private void OnDisable()
         {
             _grabInteractable.activated.RemoveListener(TriggerPulled);
+            EventManager.onRefreshWeaponDamage -= GetDamageAmount;
         }
 
         private void Awake()

@@ -48,7 +48,7 @@ namespace _NBGames.Scripts.Managers
             }
             else
             {
-                Debug.LogError("GameManager already exists. Destroying!");
+                Debug.Log("GameManager already exists. Destroying!");
                 Destroy(this.gameObject);
             }
         }

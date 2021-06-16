@@ -44,7 +44,7 @@ namespace _NBGames.Scripts.Managers
             }
             else
             {
-                Debug.LogError("InventoryManager already exists. Destroying!");
+                Debug.Log("InventoryManager already exists. Destroying!");
                 Destroy(this.gameObject);
             }
         }
@@ -60,6 +60,11 @@ namespace _NBGames.Scripts.Managers
             var itemSlotToAppend = new ItemSlot {Item = itemToAdd, Quantity = quantity};
 
             _inventory.ItemSlots.Add(itemSlotToAppend);
+
+            if (itemToAdd.IsWeapon)
+            {
+                WeaponManager.Instance.EnableWeapons();
+            }
         }
 
         public bool ItemExists(Item item)

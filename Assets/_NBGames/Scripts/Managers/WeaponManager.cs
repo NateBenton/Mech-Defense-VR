@@ -35,7 +35,7 @@ namespace _NBGames.Scripts.Managers
             }
             else
             {
-                Debug.LogError("WeaponManager already exists. Destroying!");
+                Debug.Log("WeaponManager already exists. Destroying!");
                 Destroy(this.gameObject);
             }
         }
@@ -45,7 +45,7 @@ namespace _NBGames.Scripts.Managers
             EnableWeapons();
         }
 
-        private void EnableWeapons()
+        public void EnableWeapons()
         {
             foreach (var weaponHolder in _weaponHolders)
             {
@@ -59,6 +59,7 @@ namespace _NBGames.Scripts.Managers
         public void UpgradeWeaponDamage(int index, float newDamageAmount)
         {
             _damageAmounts[index] = newDamageAmount;
+            EventManager.RefreshWeaponDamage();
         }
 
         public float GetDamageAmount(Item associatedItem)

@@ -51,12 +51,6 @@ namespace _NBGames.Scripts.Managers
             onShowWeaponInfo?.Invoke(itemName, description, price);
         }
 
-        public static event Action<string, int> onShowUpgradeInfo;
-        public static void ShowUpgradeInfo(string itemName, int cost)
-        {
-            onShowUpgradeInfo?.Invoke(itemName, cost);
-        }
-
         public static event Action onEnableInsufficientFundsText;
         public static void EnableInsufficientFundsText()
         {
@@ -152,6 +146,12 @@ namespace _NBGames.Scripts.Managers
         public static void WeaponFullyUpgraded()
         {
             onWeaponFullyUpgraded?.Invoke();
+        }
+
+        public static event Action onRefreshWeaponDamage;
+        public static void RefreshWeaponDamage()
+        {
+            onRefreshWeaponDamage?.Invoke();
         }
     }
 }
