@@ -153,5 +153,17 @@ namespace _NBGames.Scripts.Managers
         {
             onRefreshWeaponDamage?.Invoke();
         }
+
+        public static event Action onAllCurrentEnemiesKilled;
+        public static void AllCurrentEnemiesKilled()
+        {
+            onAllCurrentEnemiesKilled?.Invoke();
+        }
+
+        public static event Action<GameObject> onEnemyKilled;
+        public static void EnemyKilled(GameObject enemy)
+        {
+            onEnemyKilled?.Invoke(enemy);
+        }
     }
 }

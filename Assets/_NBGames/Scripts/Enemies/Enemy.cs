@@ -1,5 +1,6 @@
 using System;
 using _NBGames.Scripts.Interfaces;
+using _NBGames.Scripts.Managers;
 using _NBGames.Scripts.Misc;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ namespace _NBGames.Scripts.Enemies
 
             if (Health != 0) return;
             DropTreasure();
+            EventManager.EnemyKilled(gameObject);
             Destroy(gameObject);
         }
 
