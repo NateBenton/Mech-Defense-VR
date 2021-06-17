@@ -8,14 +8,12 @@ namespace _NBGames.Scripts.Misc
     {
         [SerializeField] private InputActionReference _aButtonAction;
 
-        [Header("Controllers")] 
-        [SerializeField] private GameObject _leftControllerDirect;
+        [Header("Controllers")]
         [SerializeField] private GameObject _rightControllerDirect;
-        [SerializeField] private GameObject _leftControllerRay;
         [SerializeField] private GameObject _rightControllerRay;
 
-        private bool _isRightHandedMode = true;
-
+        private bool _isDirect = true;
+        
         private void OnEnable()
         {
             _aButtonAction.action.performed += AButtonPressed;
@@ -28,50 +26,16 @@ namespace _NBGames.Scripts.Misc
 
         private void AButtonPressed(InputAction.CallbackContext obj)
         {
-            if (_isRightHandedMode)
+            if (_isDirect)
             {
-                _isRightHandedMode = false;
-            
-                _leftControllerDirect.SetActive(true);
                 _rightControllerDirect.SetActive(false);
-                _leftControllerRay.SetActive(false);
                 _rightControllerRay.SetActive(true);
             }
             else
             {
-                _isRightHandedMode = true;
-            
-                _leftControllerDirect.SetActive(false);
                 _rightControllerDirect.SetActive(true);
-                _leftControllerRay.SetActive(true);
                 _rightControllerRay.SetActive(false);
             }
-        }
-
-        private void ChangeInteractorType()
-        {
-            if (_isRightHandedMode)
-            {
-                _leftControllerDirect.SetActive(false);
-                _rightControllerDirect.SetActive(true);
-                _leftControllerRay.SetActive(true);
-                _rightControllerRay.SetActive(false);
-            }
-            else
-            {
-                _leftControllerDirect.SetActive(true);
-                _rightControllerDirect.SetActive(false);
-                _leftControllerRay.SetActive(false);
-                _rightControllerRay.SetActive(true);
-            }
-        }
-        
-        private void RayInteractEnable()
-        {
-            _leftControllerDirect.SetActive(false);
-            _rightControllerDirect.SetActive(false);
-            _leftControllerRay.SetActive(true);
-            _rightControllerRay.SetActive(true);
         }
     }
 }

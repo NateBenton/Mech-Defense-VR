@@ -4,11 +4,14 @@ using _NBGames.Scripts.Inventory;
 using _NBGames.Scripts.Shop;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace _NBGames.Scripts.Managers
 {
     public class UpgradeManager : MonoBehaviour
     {
+        public static UpgradeManager _instance;
+        
         [SerializeField] private WeaponUpgrade[] _weaponUpgrades;
         [SerializeField] private GameObject[] _upgradeInteractables;
         [SerializeField] private GameObject _upgradeInteractableHolder;
@@ -38,6 +41,7 @@ namespace _NBGames.Scripts.Managers
             EventManager.onShowUpgradeOptions += EnableCanvas;
             EventManager.onBackButtonClicked += CloseUpgradeOptions;
             EventManager.onUpgradeWeapon += UpgradeWeapon;
+            SceneManager.activeSceneChanged += SceneChanged;
         }
         
         private void OnDisable()
@@ -46,10 +50,22 @@ namespace _NBGames.Scripts.Managers
             EventManager.onShowUpgradeOptions -= EnableCanvas;
             EventManager.onBackButtonClicked -= CloseUpgradeOptions;
             EventManager.onUpgradeWeapon -= UpgradeWeapon;
+            SceneManager.activeSceneChanged -= SceneChanged;
         }
         
         private void Awake()
         {
+            if (_instance == null)
+            {
+                _instance = this;
+                DontDestroyOnLoad(this.gameObject);
+            }
+            else
+            {
+                Debug.Log("UpgradeManager already exists. Destroying!");
+                Destroy(this.gameObject);
+            }
+            
             if (_weaponUpgrades.Length != _upgradeInteractables.Length)
             {
                 Debug.LogError("WeaponUpgrades and UpgradeInteractables size mismatch!");
@@ -273,6 +289,11 @@ namespace _NBGames.Scripts.Managers
         {
             _canvas.enabled = true;
         }
+
+        private void DisableCanvas()
+        {
+            _canvas.enabled = false;
+        }
         
         private void DisableCircumstantialText()
         {
@@ -313,6 +334,11 @@ namespace _NBGames.Scripts.Managers
             {
                 CheckAvailableFunds();
             }
+        }
+        
+        private void SceneChanged(Scene oldScene, Scene currentScene)
+        {
+            CloseUpgradeOptions();
         }
     }
 }

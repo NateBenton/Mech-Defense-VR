@@ -1,6 +1,8 @@
+using System;
 using _NBGames.Scripts.Inventory;
 using _NBGames.Scripts.Misc;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace _NBGames.Scripts.Managers
 {
@@ -10,6 +12,8 @@ namespace _NBGames.Scripts.Managers
     
         [SerializeField] private WeaponHolder[] _weaponHolders;
         [SerializeField] private float[] _damageAmounts;
+        [SerializeField] private GameObject _weaponHolderRoot;
+        [SerializeField] private Item _pistolItem;
 
         public float[] DamageAmounts => _damageAmounts;
     
@@ -38,6 +42,16 @@ namespace _NBGames.Scripts.Managers
                 Debug.Log("WeaponManager already exists. Destroying!");
                 Destroy(this.gameObject);
             }
+        }
+
+        private void OnEnable()
+        {
+            SceneManager.activeSceneChanged += DisableHolderIfShop;
+        }
+        
+        private void OnDisable()
+        {
+            SceneManager.activeSceneChanged -= DisableHolderIfShop;
         }
 
         private void Start()
@@ -72,6 +86,11 @@ namespace _NBGames.Scripts.Managers
         
             Debug.LogError("Item mismatch in WeaponHolder/Inventory and Gun!");
             return 0.0f;
+        }
+        
+        private void DisableHolderIfShop(Scene oldScene, Scene currentScene)
+        {
+            _weaponHolderRoot.SetActive(currentScene.name != "TestShop");
         }
     }
 }

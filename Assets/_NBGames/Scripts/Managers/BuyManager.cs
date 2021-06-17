@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using _NBGames.Scripts.Shop;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace _NBGames.Scripts.Managers
 {
     public class BuyManager : MonoBehaviour
     {
+        private static BuyManager _instance;
+        
         [Header("Data & Objects")]
         [SerializeField] private List<ItemForPurchase> _weaponsForSale = new List<ItemForPurchase>();
         [SerializeField] private List<GameObject> _weaponInteractables = new List<GameObject>();
@@ -24,6 +27,7 @@ namespace _NBGames.Scripts.Managers
 
         private int _shownWeaponIndex;
         private GameObject _shownWeapon;
+        
 
         private void OnEnable()
         {
@@ -32,8 +36,9 @@ namespace _NBGames.Scripts.Managers
             EventManager.onEnablePurchasedText += EnablePurchasedText;
             EventManager.onShowWeaponInfo += ShowWeaponInfo;
             EventManager.onBackButtonClicked += CloseBuyOptions;
+            SceneManager.activeSceneChanged += SceneChanged;
         }
-
+        
         private void OnDisable()
         {
             EventManager.onShowBuyOptions -= ShowWeaponsForPurchase;
@@ -41,10 +46,22 @@ namespace _NBGames.Scripts.Managers
             EventManager.onEnablePurchasedText -= EnablePurchasedText;
             EventManager.onShowWeaponInfo -= ShowWeaponInfo;
             EventManager.onBackButtonClicked -= CloseBuyOptions;
+            SceneManager.activeSceneChanged -= SceneChanged;
         }
 
         private void Awake()
         {
+            if (_instance == null)
+            {
+                _instance = this;
+                DontDestroyOnLoad(this.gameObject);
+            }
+            else
+            {
+                Debug.Log("BuyManager already exists. Destroying!");
+                Destroy(this.gameObject);
+            }
+            
             if (_weaponsForSale.Count != _weaponInteractables.Count)
             {
                 Debug.LogError("WeaponsForSale and WeaponInteractables size mismatch!");
@@ -145,6 +162,11 @@ namespace _NBGames.Scripts.Managers
         {
             _canvas.enabled = true;
         }
+
+        private void DisableCanvas()
+        {
+            _canvas.enabled = false;
+        }
         
         private void ShowWeaponInfo(string itemName, string description, int value)
         {
@@ -184,6 +206,11 @@ namespace _NBGames.Scripts.Managers
             DisableInsufficientFundsText();
             EventManager.ResetNavigationButtons();
             _canvas.enabled = false;
+        }
+        
+        private void SceneChanged(Scene oldScene, Scene currentScene)
+        {
+            CloseBuyOptions();
         }
     }
 }

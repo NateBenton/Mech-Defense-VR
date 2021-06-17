@@ -33,6 +33,7 @@ namespace _NBGames.Scripts.Weapons
         {
             _grabInteractable.activated.AddListener(TriggerPulled);
             EventManager.onRefreshWeaponDamage += GetDamageAmount;
+            GetDamageAmount();
         }
         
         private void OnDisable()
@@ -54,8 +55,6 @@ namespace _NBGames.Scripts.Weapons
             {
                 Debug.LogError("associatedItem is null on " + gameObject.name);
             }
-            
-            GetDamageAmount();
         }
 
         private void GetDamageAmount()
