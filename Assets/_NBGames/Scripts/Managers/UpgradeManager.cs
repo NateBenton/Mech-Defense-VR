@@ -150,6 +150,9 @@ namespace _NBGames.Scripts.Managers
 
         private void AdjustUpgradesShown()
         {
+            // Manually add in the pistol so the starter pistol can be upgraded
+            _adjustedWeaponUpgrades.Add(_weaponUpgrades[0]);
+            
             foreach (var upgrade in _weaponUpgrades)
             {
                 if (InventoryManager.Instance.ItemExists(upgrade.AssociatedItem))

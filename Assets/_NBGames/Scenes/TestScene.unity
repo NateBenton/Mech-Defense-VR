@@ -7658,5 +7658,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4396636160638346850, guid: 71402332804ea534cb6e10fc70c81612, type: 3}
+      propertyPath: m_Name
+      value: Scifi Handgun2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71402332804ea534cb6e10fc70c81612, type: 3}
