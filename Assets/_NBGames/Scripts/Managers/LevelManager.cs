@@ -7,7 +7,7 @@ namespace _NBGames.Scripts.Managers
         private GameObject _xrRig;
 
         [SerializeField] private GameObject[] _jumpPoints;
-        private int _nextJumpPoint, _currentJumpPoint, _oldJumpPoint;
+        private int _currentJumpPoint, _oldJumpPoint;
 
         private void OnEnable()
         {
@@ -35,7 +35,7 @@ namespace _NBGames.Scripts.Managers
 
         private void GoToStartPoint()
         {
-            var jumpPosition = _jumpPoints[_nextJumpPoint].transform.position;
+            var jumpPosition = _jumpPoints[_currentJumpPoint].transform.position;
             jumpPosition.y = _xrRig.transform.position.y;
 
             _xrRig.transform.position = jumpPosition;
@@ -43,17 +43,17 @@ namespace _NBGames.Scripts.Managers
 
         private void GoToNextJumpPoint()
         {
-            if ((_nextJumpPoint + 1) < _jumpPoints.Length)
+            if ((_currentJumpPoint + 1) < _jumpPoints.Length)
             {
-                _oldJumpPoint = _nextJumpPoint;
-                _nextJumpPoint++;
+                _oldJumpPoint = _currentJumpPoint;
+                _currentJumpPoint++;
 
-                _jumpPoints[_nextJumpPoint].SetActive(true);
-                var jumpPosition = _jumpPoints[_nextJumpPoint].transform.position;
+                _jumpPoints[_currentJumpPoint].SetActive(true);
+                var jumpPosition = _jumpPoints[_currentJumpPoint].transform.position;
                 jumpPosition.y = _xrRig.transform.position.y;
 
                 _xrRig.transform.position = jumpPosition;
-                _xrRig.transform.rotation = _jumpPoints[_nextJumpPoint].transform.rotation;
+                _xrRig.transform.rotation = _jumpPoints[_currentJumpPoint].transform.rotation;
                 
                 _jumpPoints[_oldJumpPoint].SetActive(false);
             }
