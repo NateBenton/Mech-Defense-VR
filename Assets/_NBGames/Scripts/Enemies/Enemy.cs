@@ -45,6 +45,7 @@ namespace _NBGames.Scripts.Enemies
             if (Health != 0) return;
             DropMoney();
             EventManager.EnemyKilled(gameObject);
+            Destroy(_target.gameObject);
             Destroy(gameObject);
         }
 

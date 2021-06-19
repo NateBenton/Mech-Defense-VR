@@ -65,7 +65,7 @@ namespace _NBGames.Scripts.Managers
 
         private void LevelEnd()
         {
-            Debug.Log("Level completed!");
+            
         }
     }
 }
