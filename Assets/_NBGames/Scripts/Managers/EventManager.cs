@@ -165,5 +165,11 @@ namespace _NBGames.Scripts.Managers
         {
             onEnemyKilled?.Invoke(enemy);
         }
+
+        public static event Action onBlinkEnabled;
+        public static void BlinkEnabled()
+        {
+            onBlinkEnabled?.Invoke();
+        }
     }
 }

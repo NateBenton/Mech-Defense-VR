@@ -11,12 +11,12 @@ namespace _NBGames.Scripts.Managers
 
         private void OnEnable()
         {
-            EventManager.onAllCurrentEnemiesKilled += GoToNextJumpPoint;
+            EventManager.onBlinkEnabled += GoToNextJumpPoint;
         }
 
         private void OnDisable()
         {
-            EventManager.onAllCurrentEnemiesKilled -= GoToNextJumpPoint;
+            EventManager.onBlinkEnabled -= GoToNextJumpPoint;
         }
 
         // Start is called before the first frame update
