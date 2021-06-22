@@ -11,7 +11,8 @@ namespace _NBGames.Scripts.Enemies
     {
         [SerializeField] private Transform _pivotPoint;
         [SerializeField] private float _rotatePointSpeed = 1f;
-        [SerializeField] private Transform[] _raycastOrigins;
+        [SerializeField] private Transform _raycastOrigin;
+        [SerializeField] private ParticleSystem[] _muzzleParticles;
         [SerializeField] private float _health = 4f;
         [SerializeField] private Transform _targetHolder;
         [SerializeField] private Transform _target;
@@ -111,16 +112,21 @@ namespace _NBGames.Scripts.Enemies
 
         public void Shoot()
         {
-            foreach (var origin in _raycastOrigins)
-            {
-                Debug.Log("Shot!");
-                if (!Physics.Raycast(origin.position, origin.TransformDirection(Vector3.forward),
-                    out var hit, Mathf.Infinity)) return;
 
-                if (hit.transform.CompareTag("PlayerHitbox"))
-                {
-                    Debug.Log("You were hit!");
-                }
+            if (!Physics.Raycast(_raycastOrigin.position, _raycastOrigin.TransformDirection(Vector3.forward),
+                out var hit, Mathf.Infinity)) return;
+
+            if (hit.transform.CompareTag("PlayerHitbox"))
+            {
+                Debug.Log("You were hit!");
+            }
+        }
+
+        public void PlayMuzzleFlash()
+        {
+            foreach (var muzzleFlash in _muzzleParticles)
+            {
+                muzzleFlash.Play();
             }
         }
     }
