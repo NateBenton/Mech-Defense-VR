@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using _NBGames.Scripts.Shop;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace _NBGames.Scripts.Managers
 {
@@ -13,6 +15,8 @@ namespace _NBGames.Scripts.Managers
         [SerializeField] private int _maxMoney = 999999;
 
         public int CurrentMoney => _currentMoney;
+
+        public GameObject PlayerHitbox { get; private set; }
 
         public static GameManager Instance
         {
@@ -31,12 +35,16 @@ namespace _NBGames.Scripts.Managers
         {
             EventManager.onAddMoney += AddMoney;
             EventManager.onRemoveMoney += RemoveMoney;
+            SceneManager.activeSceneChanged += FindPlayerHitboxOnLoad;
         }
+
+        
 
         private void OnDisable()
         {
             EventManager.onAddMoney -= AddMoney;
             EventManager.onRemoveMoney -= RemoveMoney;
+            SceneManager.activeSceneChanged -= FindPlayerHitboxOnLoad;
         }
 
         private void Awake()
@@ -50,6 +58,25 @@ namespace _NBGames.Scripts.Managers
             {
                 Debug.Log("GameManager already exists. Destroying!");
                 Destroy(this.gameObject);
+            }
+        }
+
+        private void Start()
+        {
+            FindPlayerHitbox();
+        }
+        
+        private void FindPlayerHitboxOnLoad(Scene arg0, Scene arg1)
+        {
+            FindPlayerHitbox();
+        }
+
+        private void FindPlayerHitbox()
+        {
+            PlayerHitbox = GameObject.FindWithTag("PlayerHitbox");
+            if (PlayerHitbox == null)
+            {
+                Debug.LogError("PlayerHitbox is null on " + gameObject.name);
             }
         }
 
